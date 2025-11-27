@@ -48,7 +48,11 @@ export async function getArticulos(options?: {
     console.log("[v0] Fetched articulos count:", Array.isArray(result) ? result.length : 0)
     return result as Articulo[]
   } catch (error) {
-    console.error("[v0] Error in getArticulos:", error)
+    const errorMessage = error instanceof Error ? error.message : JSON.stringify(error)
+    const errorStack = error instanceof Error ? error.stack : ""
+    console.error("[v0] Error in getArticulos:", errorMessage)
+    if (errorStack) console.error("[v0] Stack:", errorStack)
+    console.error("[v0] Full error object:", error)
     throw error
   }
 }

@@ -19,7 +19,11 @@ export default async function HomePage() {
   try {
     articulos = await getArticulos({ limit: 10 })
   } catch (error) {
-    console.error("[v0] Error fetching articles:", error)
+    const errorMessage = error instanceof Error ? error.message : JSON.stringify(error)
+    const errorStack = error instanceof Error ? error.stack : ""
+    console.error("[v0] Error fetching articles:", errorMessage)
+    if (errorStack) console.error("[v0] Stack:", errorStack)
+    console.error("[v0] Full error:", error)
   }
 
   const featuredArticle = articulos[0]
