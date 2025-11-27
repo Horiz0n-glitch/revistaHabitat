@@ -1,0 +1,289 @@
+// Directus Collection Types
+// These types match the REAL schema configured in Directus (Spanish names)
+
+// ===== TIPOS REALES DE DIRECTUS =====
+
+export interface Categoria {
+  id: number
+  nombre: string
+  slug: string
+  descripcion?: string
+  icono?: string
+  categoria_padre?: number | Categoria
+  estado: "publicado" | "borrador" | "archivado"
+  orden?: number
+}
+
+export interface Etiqueta {
+  id: number
+  nombre: string
+  slug: string
+  estado: "publicado" | "borrador"
+}
+
+export interface Autor {
+  id: number
+  nombre: string
+  email?: string
+  biografia?: string
+  avatar?: string
+  rol?: string
+  redes_sociales?: Record<string, string>
+  estado: "activo" | "inactivo"
+}
+
+export interface Articulo {
+  id: number
+  titulo: string
+  slug: string
+  extracto: string
+  contenido: string
+  imagen_principal: string
+  galeria?: number[] // IDs de articulos_files
+  categoria: number | Categoria
+  subcategoria?: number | Categoria
+  Subcategoria_2?: number | Categoria
+  subcategoria_3?: number | Categoria
+  subcategoria_4?: number | Categoria
+  autor: number | Autor
+  etiquetas?: ArticuloEtiqueta[]
+  destacado: boolean
+  vistas: number
+  tiempo_lectura?: number
+  seo_titulo?: string
+  seo_descripcion?: string
+  estado: "publicado" | "borrador" | "archivado"
+  fecha_publicacion: string
+  Epigrafe?: string
+  Epigrafe_galeria?: string
+}
+
+export interface ArticuloFile {
+  id: number
+  articulos_id: number
+  directus_files_id: string
+}
+
+export interface ArticuloEtiqueta {
+  id: number
+  articulos_id: number | Articulo
+  etiquetas_id: number | Etiqueta
+}
+
+export interface Entrevista {
+  id: number
+  titulo: string
+  slug: string
+  extracto: string
+  contenido: string
+  imagen_principal: string
+  nombre_entrevistado: string
+  cargo_entrevistado?: string
+  archivo_audio?: string
+  categoria?: number | Categoria
+  autor: number | Autor
+  etiquetas?: EntrevistaEtiqueta[]
+  destacado: boolean
+  vistas: number
+  estado: "publicado" | "borrador" | "archivado"
+  fecha_publicacion: string
+}
+
+export interface EntrevistaEtiqueta {
+  id: number
+  entrevistas_id: number | Entrevista
+  etiquetas_id: number | Etiqueta
+}
+
+export interface Revista {
+  id: number
+  titulo: string
+  slug: string
+  numero: number
+  anio: number
+  portada: string
+  archivo_pdf?: string
+  descripcion?: string
+  precio: number
+  indice?: Array<{ titulo: string; pagina: number }>
+  destacados?: string[]
+  paginas?: number
+  estado: "disponible" | "agotado" | "proximo"
+  fecha_publicacion: string
+}
+
+export interface Anuncio {
+  id: number
+  nombre: string
+  imagen: string
+  url_enlace?: string
+  tamano: "leaderboard" | "billboard" | "rectangle" | "square" | "skyscraper" | "article-card"
+  posicion?: string
+  impresiones: number
+  clicks: number
+  estado: "activo" | "pausado" | "expirado"
+  fecha_inicio?: string
+  fecha_fin?: string
+  cliente?: string
+  prioridad: number
+}
+
+// ===== DIRECTUS SCHEMA =====
+
+export interface DirectusSchema {
+  categorias: Categoria[]
+  etiquetas: Etiqueta[]
+  autores: Autor[]
+  articulos: Articulo[]
+  articulos_files: ArticuloFile[]
+  articulos_etiquetas: ArticuloEtiqueta[]
+  entrevistas: Entrevista[]
+  entrevistas_etiquetas: EntrevistaEtiqueta[]
+  revistas: Revista[]
+  anuncios: Anuncio[]
+}
+
+// ===== LEGACY TYPES (for backwards compatibility) =====
+
+export interface Category {
+  id: number
+  name: string
+  slug: string
+  description?: string
+  icon?: string
+  parent_category?: number | Category
+  status: "published" | "draft" | "archived"
+  sort?: number
+  date_created: string
+  date_updated: string
+}
+
+export interface Tag {
+  id: number
+  name: string
+  slug: string
+  status: "published" | "draft"
+}
+
+export interface Author {
+  id: number
+  name: string
+  email?: string
+  bio?: string
+  avatar?: string
+  role?: string
+  social_links?: Record<string, string>
+  status: "active" | "inactive"
+}
+
+export interface Article {
+  id: number
+  title: string
+  slug: string
+  excerpt: string
+  content: string
+  featured_image: string
+  gallery?: string[]
+  category: number | Category
+  subcategory?: number | Category
+  author: number | Author
+  tags?: ArticleTag[]
+  featured: boolean
+  views: number
+  reading_time?: number
+  seo_title?: string
+  seo_description?: string
+  status: "published" | "draft" | "archived"
+  publish_date: string
+  date_created: string
+  date_updated: string
+}
+
+export interface Interview {
+  id: number
+  title: string
+  slug: string
+  excerpt: string
+  content: string
+  featured_image: string
+  interviewee_name: string
+  interviewee_title?: string
+  audio_file?: string
+  category?: number | Category
+  author: number | Author
+  tags?: InterviewTag[]
+  featured: boolean
+  views: number
+  status: "published" | "draft" | "archived"
+  publish_date: string
+  date_created: string
+  date_updated: string
+}
+
+export interface Magazine {
+  id: number
+  title: string
+  slug: string
+  issue_number: number
+  year: number
+  cover_image: string
+  pdf_file?: string
+  description?: string
+  price: number
+  table_of_contents?: Array<{ title: string; page: number }>
+  highlights?: string[]
+  page_count?: number
+  status: "available" | "sold_out" | "upcoming"
+  publish_date: string
+  date_created: string
+  date_updated: string
+}
+
+export interface Ad {
+  id: number
+  name: string
+  image: string
+  link_url?: string
+  size: "leaderboard" | "billboard" | "rectangle" | "square" | "skyscraper" | "article-card"
+  position?: string
+  impressions: number
+  clicks: number
+  status: "active" | "paused" | "expired"
+  start_date?: string
+  end_date?: string
+  client_name?: string
+  priority: number
+}
+
+export interface User {
+  id: string
+  email: string
+  first_name?: string
+  last_name?: string
+  avatar?: string
+  role: string
+  subscription_status?: "free" | "subscriber"
+  purchased_magazines?: UserMagazine[]
+  bio?: string
+  date_created: string
+  date_updated: string
+}
+
+export interface ArticleTag {
+  id: number
+  articles_id: number | Article
+  tags_id: number | Tag
+}
+
+export interface InterviewTag {
+  id: number
+  interviews_id: number | Interview
+  tags_id: number | Tag
+}
+
+export interface UserMagazine {
+  id: number
+  directus_users_id: string | User
+  magazines_id: number | Magazine
+  purchase_date: string
+}
