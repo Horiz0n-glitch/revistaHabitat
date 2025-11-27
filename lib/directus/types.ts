@@ -130,6 +130,17 @@ export interface Anuncio {
 
 // ===== DIRECTUS SCHEMA =====
 
+export interface MensajeContacto {
+  id: number
+  nombre: string
+  email: string
+  telefono?: string
+  asunto: string
+  mensaje: string
+  fecha_creacion: string
+  estado: "nuevo" | "leido" | "respondido"
+}
+
 export interface DirectusSchema {
   categorias: Categoria[]
   etiquetas: Etiqueta[]
@@ -141,6 +152,7 @@ export interface DirectusSchema {
   entrevistas_etiquetas: EntrevistaEtiqueta[]
   revistas: Revista[]
   anuncios: Anuncio[]
+  mensajes_contacto: MensajeContacto[]
 }
 
 // ===== LEGACY TYPES (for backwards compatibility) =====

@@ -1,7 +1,8 @@
 'use server'
 
 import { z } from 'zod'
-import { Resend } from 'resend'
+import { createItem } from '@directus/sdk'
+import { getDirectusClient } from '@/lib/directus/client'
 
 const contactSchema = z.object({
   name: z.string().min(2, { message: 'El nombre debe tener al menos 2 caracteres' }),
@@ -11,11 +12,9 @@ const contactSchema = z.object({
   message: z.string().min(10, { message: 'El mensaje debe tener al menos 10 caracteres' }),
 })
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-
 export async function sendContactEmail(prevState: any, formData: FormData) {
-  console.log('[v0] Starting contact form submission...')
-  
+  console.log('[v0] Starting contact form submission via Directus...')
+
   const validatedFields = contactSchema.safeParse({
     name: formData.get('name'),
     email: formData.get('email'),
@@ -36,45 +35,29 @@ export async function sendContactEmail(prevState: any, formData: FormData) {
   const { name, email, phone, subject, message } = validatedFields.data
 
   try {
-    if (process.env.RESEND_API_KEY) {
-      console.log('[v0] RESEND_API_KEY found. Attempting to send email...')
-      
-      const data = await resend.emails.send({
-        from: 'Revista Habitat <onboarding@resend.dev>',
-        to: 'yosuanmulti@gmail.com',
-        replyTo: email,
-        subject: `Nuevo contacto: ${subject}`,
-        html: `
-          <h2>Nuevo mensaje de contacto</h2>
-          <p><strong>Nombre:</strong> ${name}</p>
-          <p><strong>Email:</strong> ${email}</p>
-          <p><strong>Teléfono:</strong> ${phone || 'No especificado'}</p>
-          <p><strong>Asunto:</strong> ${subject}</p>
-          <p><strong>Mensaje:</strong></p>
-          <p>${message}</p>
-        `,
-      })
+    const client = getDirectusClient()
 
-      console.log('[v0] Resend API response:', data)
+    // Create the item in Directus
+    // Note: The collection 'mensajes_contacto' must exist in Directus
+    // and the Public role (or the token user) must have create permissions
+    await client.request(createItem('mensajes_contacto', {
+      nombre: name,
+      email: email,
+      telefono: phone,
+      asunto: subject,
+      mensaje: message,
+      estado: 'nuevo',
+      fecha_creacion: new Date().toISOString()
+    }))
 
-      if (data.error) {
-        console.error('[v0] Resend returned an error:', data.error)
-        throw new Error(data.error.message)
-      }
-      
-      console.log('[v0] Email sent successfully to yosuanmulti@gmail.com')
-    } else {
-      console.log('[v0] RESEND_API_KEY is missing. Simulating email send to yosuanmulti@gmail.com')
-      // Simulate delay if no API key
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-    }
+    console.log('[v0] Message saved to Directus successfully')
 
     return {
       success: true,
       message: 'Mensaje enviado correctamente. Nos pondremos en contacto contigo pronto.',
     }
   } catch (error) {
-    console.error('[v0] Error sending email:', error)
+    console.error('[v0] Error saving message to Directus:', error)
     return {
       success: false,
       message: 'Hubo un error al enviar el mensaje. Por favor intenta nuevamente.',

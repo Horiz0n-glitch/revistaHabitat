@@ -3,49 +3,91 @@ import { getAssetUrl } from "@/lib/directus/client"
 export function processContent(content: string): string {
     if (!content) return ""
 
+    let processedContent = content
+
     // Replace image URLs that point to Directus assets (both relative and absolute)
-    // Matches src="..." where the URL contains /assets/
-    let processedContent = content.replace(/src=["']([^"']+\/assets\/[^"']+)["']/g, (match, url) => {
-        // url is the captured URL from the src attribute
-        // It could be "/assets/..." or "https://domain.com/assets/..."
-
-        // getAssetUrl handles both cases:
-        // 1. If it starts with http, it proxies it.
-        // 2. If it's just an ID (or relative path in our case), we might need to be careful.
-
-        // getAssetUrl implementation:
-        // if (fileId.startsWith("http")) -> proxies it
-        // else -> appends DIRECTUS_URL/assets/fileId -> proxies it
-
-        // If we pass "/assets/ID", getAssetUrl will append it to DIRECTUS_URL/assets/
-        // Resulting in DIRECTUS_URL/assets//assets/ID -> WRONG
-
-        // So we need to normalize the input to getAssetUrl.
-
+    processedContent = processedContent.replace(/src=["']([^"']+\/assets\/[^"']+)["']/g, (match, url) => {
         let assetIdOrUrl = url
 
         // If it's a relative path starting with /assets/, extract the ID
         if (url.startsWith("/assets/")) {
             assetIdOrUrl = url.replace("/assets/", "")
         }
-        // If it's an absolute URL, we can pass it directly to getAssetUrl which handles http prefix
 
         const newUrl = getAssetUrl(assetIdOrUrl)
         return `src="${newUrl}"`
     })
 
-    // Add styling to images
-    // We use a negative lookahead to ensure we don't add the class if it's already there (simple check)
-    // But since we are processing raw HTML from Directus which usually doesn't have these classes, we can just replace <img
+    // Add styling to images if they don't already have classes
     processedContent = processedContent.replace(
-        /<img /g,
+        /<img(?![^>]*class=)/g,
         '<img class="rounded-lg shadow-lg my-8 w-full h-auto object-cover border border-border/50" '
     )
 
     // Add styling to captions (usually in <sub> tags)
     processedContent = processedContent.replace(
-        /<sub>/g,
+        /<sub(?![^>]*class=)>/g,
         '<sub class="block text-center text-sm text-muted-foreground mt-3 mb-10 font-medium leading-relaxed italic">'
+    )
+
+    // Ensure paragraphs have proper spacing
+    processedContent = processedContent.replace(
+        /<p(?![^>]*class=)>/g,
+        '<p class="mb-4">'
+    )
+
+    // Style headings if they don't have classes
+    processedContent = processedContent.replace(
+        /<h2(?![^>]*class=)>/g,
+        '<h2 class="text-3xl font-bold mt-8 mb-4">'
+    )
+
+    processedContent = processedContent.replace(
+        /<h3(?![^>]*class=)>/g,
+        '<h3 class="text-2xl font-bold mt-6 mb-3">'
+    )
+
+    // Style lists
+    processedContent = processedContent.replace(
+        /<ul(?![^>]*class=)>/g,
+        '<ul class="list-disc list-inside mb-4 space-y-2">'
+    )
+
+    processedContent = processedContent.replace(
+        /<ol(?![^>]*class=)>/g,
+        '<ol class="list-decimal list-inside mb-4 space-y-2">'
+    )
+
+    processedContent = processedContent.replace(
+        /<li(?![^>]*class=)>/g,
+        '<li class="ml-4">'
+    )
+
+    // Style blockquotes
+    processedContent = processedContent.replace(
+        /<blockquote(?![^>]*class=)>/g,
+        '<blockquote class="border-l-4 border-accent pl-4 italic my-6 text-muted-foreground">'
+    )
+
+    // Preserve line breaks
+    processedContent = processedContent.replace(/<br\s*\/?>/g, '<br class="my-2" />')
+
+    // Style strong/bold text
+    processedContent = processedContent.replace(
+        /<strong(?![^>]*class=)>/g,
+        '<strong class="font-bold">'
+    )
+
+    // Style emphasis/italic text
+    processedContent = processedContent.replace(
+        /<em(?![^>]*class=)>/g,
+        '<em class="italic">'
+    )
+
+    // Style links
+    processedContent = processedContent.replace(
+        /<a /g,
+        '<a class="text-accent hover:underline" '
     )
 
     return processedContent

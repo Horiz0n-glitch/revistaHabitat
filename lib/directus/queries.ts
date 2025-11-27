@@ -68,7 +68,7 @@ export async function getArticuloBySlug(slug: string): Promise<Articulo | null> 
       readItems("articulos", {
         filter: {
           slug: { _eq: decodedSlug },
-          estado: { _eq: "publicado" },
+          // Removed estado filter to allow viewing draft and archived articles
         },
         fields: [
           "*",
@@ -240,6 +240,71 @@ export async function getArticulosBySubcategoria(subcategoriaId: number, limit =
       ],
     }),
   ) as Promise<Articulo[]>
+}
+
+// Get articles by status (for draft/archived views)
+export async function getArticulosByEstado(
+  estado: "publicado" | "borrador" | "archivado",
+  options?: {
+    limit?: number
+    offset?: number
+    sort?: string[]
+  }
+) {
+  try {
+    const client = getDirectusClient()
+
+    const query: any = {
+      limit: options?.limit || 50,
+      offset: options?.offset || 0,
+      filter: {
+        estado: { _eq: estado },
+      },
+      sort: options?.sort || ["-fecha_publicacion"],
+      fields: [
+        "*",
+        "categoria.id",
+        "categoria.nombre",
+        "categoria.slug",
+        "categoria.categoria_padre",
+        "subcategoria.id",
+        "subcategoria.nombre",
+        "subcategoria.slug",
+        "subcategoria.categoria_padre",
+        "autor.id",
+        "autor.nombre",
+        "autor.avatar",
+        "autor.biografia",
+      ],
+    }
+
+    console.log(`[v0] Fetching articulos with estado: ${estado}`)
+    const result = await client.request(readItems("articulos", query))
+    console.log(`[v0] Fetched ${Array.isArray(result) ? result.length : 0} articulos with estado: ${estado}`)
+    return result as Articulo[]
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : JSON.stringify(error)
+    console.error(`[v0] Error in getArticulosByEstado (${estado}):`, errorMessage)
+    throw error
+  }
+}
+
+// Get draft articles
+export async function getArticulosBorrador(options?: {
+  limit?: number
+  offset?: number
+  sort?: string[]
+}) {
+  return getArticulosByEstado("borrador", options)
+}
+
+// Get archived articles
+export async function getArticulosArchivados(options?: {
+  limit?: number
+  offset?: number
+  sort?: string[]
+}) {
+  return getArticulosByEstado("archivado", options)
 }
 
 // ===== AUTORES =====
