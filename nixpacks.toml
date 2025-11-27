@@ -1,2 +1,18 @@
 [phases.setup]
-nixPkgs = ['nodejs_20', 'pnpm-9_x']
+nixPkgs = ['nodejs_20', 'gcc', 'glibc']
+
+[phases.install]
+dependencyFile = 'package-lock.json'
+dependencyFileCommand = 'npm ci'
+installCmd = 'npm ci'
+
+[phases.build]
+cmds = ['npm run build']
+
+[start]
+cmd = 'npm start'
+runImage = 'node:20-alpine'
+
+[variables]
+NODE_ENV = 'production'
+NPM_PRODUCTION = 'true'
