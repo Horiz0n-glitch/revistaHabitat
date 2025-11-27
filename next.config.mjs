@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'standalone', // ← AGREGAR ESTA LÍNEA
   eslint: {
     ignoreDuringBuilds: true,
   },
