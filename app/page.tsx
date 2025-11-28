@@ -17,7 +17,27 @@ export default async function HomePage() {
   let articulos: Articulo[] = []
 
   try {
-    articulos = await getArticulos({ limit: 10 })
+    articulos = await getArticulos({
+      limit: 10,
+      filter: {
+        _and: [
+          {
+            categoria: {
+              slug: {
+                _nin: ["eventos-y-jornadas", "eventos-cursos", "eventos", "jornadas"],
+              },
+            },
+          },
+          {
+            subcategoria: {
+              slug: {
+                _nin: ["eventos-y-jornadas", "eventos-cursos", "eventos", "jornadas"],
+              },
+            },
+          },
+        ],
+      },
+    })
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : JSON.stringify(error)
     const errorStack = error instanceof Error ? error.stack : ""

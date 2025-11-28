@@ -34,9 +34,8 @@ export function Header() {
   return (
     <>
       <div
-        className={`bg-gray-900 text-white transition-all duration-300 sticky top-0 z-[101] ${
-          showTopBar ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"
-        }`}
+        className={`bg-gray-900 text-white transition-all duration-300 sticky top-0 z-[101] ${showTopBar ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"
+          }`}
       >
         <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-24">
           <div className="flex items-center justify-end gap-6 h-10">
@@ -68,6 +67,12 @@ export function Header() {
             </Link>
 
             <nav className="hidden lg:flex items-center gap-6 flex-1 justify-center">
+              <Link
+                href="/"
+                className="text-sm font-semibold text-gray-900 hover:text-gray-600 transition-colors whitespace-nowrap"
+              >
+                Inicio
+              </Link>
               {/* Artículos dropdown */}
               {articulosCategory && (
                 <div
@@ -76,7 +81,7 @@ export function Header() {
                   onMouseLeave={() => setHoveredTopNav(null)}
                 >
                   <Link
-                    href="/articulos"
+                    href="/categoria/articulos"
                     className="flex items-center gap-1 text-sm font-semibold text-gray-900 hover:text-gray-600 transition-colors whitespace-nowrap"
                   >
                     {articulosCategory.name}
@@ -94,7 +99,7 @@ export function Header() {
                             key={subcategory.slug}
                             href={
                               subcategory.slug === "articulos"
-                                ? "/articulos"
+                                ? "/categoria/articulos"
                                 : `/categoria/${articulosCategory.slug}/${subcategory.slug}`
                             }
                             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors"
@@ -180,9 +185,8 @@ export function Header() {
           </div>
 
           <div
-            className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-              mobileMenuOpen ? "max-h-[80vh] opacity-100" : "max-h-0 opacity-0"
-            }`}
+            className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${mobileMenuOpen ? "max-h-[80vh] opacity-100" : "max-h-0 opacity-0"
+              }`}
           >
             <nav className="py-4 border-t border-gray-200 overflow-y-auto max-h-[calc(80vh-1rem)]">
               <div className="flex flex-col gap-1">
@@ -197,11 +201,19 @@ export function Header() {
                   Buscar
                 </button>
 
+                <Link
+                  href="/"
+                  className="px-3 py-2 text-sm font-semibold text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Inicio
+                </Link>
+
                 {/* Artículos with subcategories */}
                 {articulosCategory && (
                   <div className="flex flex-col">
                     <Link
-                      href="/articulos"
+                      href="/categoria/articulos"
                       className="px-3 py-2 text-sm font-semibold text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
                       onClick={() => setMobileMenuOpen(false)}
                     >
@@ -214,7 +226,7 @@ export function Header() {
                             key={subcategory.slug}
                             href={
                               subcategory.slug === "articulos"
-                                ? "/articulos"
+                                ? "/categoria/articulos"
                                 : `/categoria/${articulosCategory.slug}/${subcategory.slug}`
                             }
                             className="px-3 py-1.5 text-xs text-gray-700 hover:bg-gray-100 rounded-md transition-colors"
