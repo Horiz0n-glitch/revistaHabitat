@@ -33,34 +33,34 @@ export function processContent(content: string): string {
     // Ensure paragraphs have proper spacing
     processedContent = processedContent.replace(
         /<p(?![^>]*class=)>/g,
-        '<p class="mb-4">'
+        '<p class="mb-4 leading-relaxed text-lg">'
     )
 
     // Style headings if they don't have classes
     processedContent = processedContent.replace(
         /<h2(?![^>]*class=)>/g,
-        '<h2 class="text-3xl font-bold mt-8 mb-4">'
+        '<h2 class="text-3xl font-bold mt-10 mb-6 font-serif">'
     )
 
     processedContent = processedContent.replace(
         /<h3(?![^>]*class=)>/g,
-        '<h3 class="text-2xl font-bold mt-6 mb-3">'
+        '<h3 class="text-2xl font-bold mt-8 mb-4 font-serif">'
     )
 
     // Style lists
     processedContent = processedContent.replace(
         /<ul(?![^>]*class=)>/g,
-        '<ul class="list-disc list-inside mb-4 space-y-2">'
+        '<ul class="list-disc list-outside ml-6 mb-6 space-y-2">'
     )
 
     processedContent = processedContent.replace(
         /<ol(?![^>]*class=)>/g,
-        '<ol class="list-decimal list-inside mb-4 space-y-2">'
+        '<ol class="list-decimal list-outside ml-6 mb-6 space-y-2">'
     )
 
     processedContent = processedContent.replace(
         /<li(?![^>]*class=)>/g,
-        '<li class="ml-4">'
+        '<li class="pl-1 leading-relaxed">'
     )
 
     // Style blockquotes
