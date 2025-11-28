@@ -141,6 +141,24 @@ export interface MensajeContacto {
   estado: "nuevo" | "leido" | "respondido"
 }
 
+export interface ContactoInstitucion {
+  id: number
+  nombre_institucion: string
+  tipo_institucion: "fundacion" | "ong" | "asociacion" | "otro"
+  nombre_contacto: string
+  cargo: string
+  email: string
+  telefono: string
+  sitio_web?: string
+  descripcion: string
+  actividades: string
+  instagram?: string
+  facebook?: string
+  linkedin?: string
+  fecha_creacion: string
+  estado: "pendiente" | "contactado" | "publicado" | "rechazado"
+}
+
 export interface DirectusSchema {
   categorias: Categoria[]
   etiquetas: Etiqueta[]
@@ -153,6 +171,7 @@ export interface DirectusSchema {
   revistas: Revista[]
   anuncios: Anuncio[]
   mensajes_contacto: MensajeContacto[]
+  contacto_instituciones: ContactoInstitucion[]
 }
 
 // ===== LEGACY TYPES (for backwards compatibility) =====

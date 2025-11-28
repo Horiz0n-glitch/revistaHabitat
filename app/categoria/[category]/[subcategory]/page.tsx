@@ -8,6 +8,7 @@ import { notFound } from "next/navigation"
 import { getCategorias, getArticulos } from "@/lib/directus/queries"
 import { getAssetUrl } from "@/lib/directus/client"
 import type { Articulo, Categoria } from "@/lib/directus/types"
+import { InstitutionContactForm } from "@/components/institution-contact-form"
 
 export const revalidate = 60
 
@@ -91,6 +92,15 @@ export default async function SubcategoryPage({
             </p>
           </div>
         </section>
+
+        {/* Institution Contact Form - Only for RSE/Foundations/NGO subcategories */}
+        {(subcategoria?.slug?.toLowerCase().includes('rse') ||
+          subcategoria?.slug?.toLowerCase().includes('fundacion') ||
+          subcategoria?.slug?.toLowerCase().includes('ong')) && (
+            <section className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-24 py-12 md:py-16">
+              <InstitutionContactForm />
+            </section>
+          )}
 
         {/* Content Grid */}
         <section className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-24 py-12">
