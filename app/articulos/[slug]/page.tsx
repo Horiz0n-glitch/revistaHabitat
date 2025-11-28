@@ -23,7 +23,7 @@ export async function generateStaticParams() {
       slug: articulo.slug,
     }))
   } catch (error) {
-    console.error("[v0] Error generating static params:", error)
+    console.error("[Horizont] Error generating static params:", error)
     return []
   }
 }
@@ -33,31 +33,31 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
   const slug = decodeURIComponent(rawSlug)
 
-  console.log("[v0] ArticlePage loading for slug:", slug)
+  console.log("[Horizont] ArticlePage loading for slug:", slug)
 
   let articulo = null
   let galeriaUrls: string[] = []
 
   try {
     articulo = await getArticuloBySlug(slug)
-    console.log("[v0] Articulo result:", articulo ? "Found" : "Not found")
+    console.log("[Horizont] Articulo result:", articulo ? "Found" : "Not found")
 
     if (articulo) {
       // Fetch gallery images
       try {
         const galeriaFiles = await getArticuloGaleria(articulo.id)
-        console.log("[v0] Gallery files found:", galeriaFiles.length)
+        console.log("[Horizont] Gallery files found:", galeriaFiles.length)
         galeriaUrls = galeriaFiles.map((file) => getAssetUrl(file.directus_files_id))
       } catch (galError) {
-        console.error("[v0] Error fetching gallery:", galError)
+        console.error("[Horizont] Error fetching gallery:", galError)
       }
     }
   } catch (error) {
-    console.error("[v0] Error fetching article:", error)
+    console.error("[Horizont] Error fetching article:", error)
   }
 
   if (!articulo) {
-    console.log("[v0] Articulo not found, calling notFound()")
+    console.log("[Horizont] Articulo not found, calling notFound()")
     notFound()
   }
 
@@ -124,7 +124,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                       />
                     </div>
                     <div>
-                      <p className="font-medium">{autor?.nombre || "Equipo Editorial"}</p>
+                      <p className="font-medium"> <span className="font-light">Por:</span> {autor?.nombre || "Equipo Editorial"}</p>
                       {autor?.email && <p className="text-sm text-muted-foreground">{autor.email}</p>}
                       <p className="text-sm text-muted-foreground flex items-center gap-1">
                         <Clock className="h-3 w-3" />
