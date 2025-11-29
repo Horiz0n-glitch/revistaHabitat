@@ -41,13 +41,13 @@ export default function MagazinesPage() {
                 <Construction className="h-10 w-10 text-accent" />
               </div>
             </div>
-            
+
             <div className="space-y-4">
               <h2 className="font-serif text-3xl md:text-4xl font-bold">
                 Contenido en Preparación
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                Estamos cargando nuevas revistas digitales desde nuestro sistema Directus. Pronto tendrás acceso a todo nuestro catálogo actualizado.
+                Estamos cargando nuevas revistas digitales. Pronto tendrás acceso a todo nuestro catálogo actualizado.
               </p>
             </div>
 

@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Search, Menu, User, X, ChevronDown } from "lucide-react"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { SearchDialog } from "@/components/search-dialog"
 import { navigationCategories } from "@/lib/mock-data"
 
@@ -15,6 +15,9 @@ export function Header() {
   const [hoveredTopNav, setHoveredTopNav] = useState<string | null>(null)
   const [showTopBar, setShowTopBar] = useState(true)
 
+  const topNavTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const categoryTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20)
@@ -24,6 +27,34 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  const handleTopNavEnter = (slug: string) => {
+    if (topNavTimeoutRef.current) {
+      clearTimeout(topNavTimeoutRef.current)
+      topNavTimeoutRef.current = null
+    }
+    setHoveredTopNav(slug)
+  }
+
+  const handleTopNavLeave = () => {
+    topNavTimeoutRef.current = setTimeout(() => {
+      setHoveredTopNav(null)
+    }, 300)
+  }
+
+  const handleCategoryEnter = (slug: string) => {
+    if (categoryTimeoutRef.current) {
+      clearTimeout(categoryTimeoutRef.current)
+      categoryTimeoutRef.current = null
+    }
+    setHoveredCategory(slug)
+  }
+
+  const handleCategoryLeave = () => {
+    categoryTimeoutRef.current = setTimeout(() => {
+      setHoveredCategory(null)
+    }, 300)
+  }
+
   const articulosCategory = navigationCategories.find((cat) => cat.slug === "articulos")
   const culturaCategory = navigationCategories.find((cat) => cat.slug === "cultura-y-patrimonio")
 
@@ -32,7 +63,7 @@ export function Header() {
   )
 
   return (
-    <>
+    <div className="relative z-[100]">
       <div
         className={`bg-gray-900 text-white transition-all duration-300 sticky top-0 z-[101] ${showTopBar ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"
           }`}
@@ -77,8 +108,8 @@ export function Header() {
               {articulosCategory && (
                 <div
                   className="relative"
-                  onMouseEnter={() => setHoveredTopNav("articulos")}
-                  onMouseLeave={() => setHoveredTopNav(null)}
+                  onMouseEnter={() => handleTopNavEnter("articulos")}
+                  onMouseLeave={handleTopNavLeave}
                 >
                   <Link
                     href="/categoria/articulos"
@@ -116,8 +147,8 @@ export function Header() {
               {culturaCategory && (
                 <div
                   className="relative"
-                  onMouseEnter={() => setHoveredTopNav("cultura-y-patrimonio")}
-                  onMouseLeave={() => setHoveredTopNav(null)}
+                  onMouseEnter={() => handleTopNavEnter("cultura-y-patrimonio")}
+                  onMouseLeave={handleTopNavLeave}
                 >
                   <Link
                     href="/categoria/cultura-y-patrimonio"
@@ -299,8 +330,8 @@ export function Header() {
                 <div
                   key={category.slug}
                   className="relative"
-                  onMouseEnter={() => setHoveredCategory(category.slug)}
-                  onMouseLeave={() => setHoveredCategory(null)}
+                  onMouseEnter={() => handleCategoryEnter(category.slug)}
+                  onMouseLeave={handleCategoryLeave}
                 >
                   <Link
                     href={`/categoria/${category.slug}`}
@@ -333,6 +364,6 @@ export function Header() {
       </header>
 
       <SearchDialog open={searchOpen} onOpenChange={setSearchOpen} />
-    </>
+    </div>
   )
 }
