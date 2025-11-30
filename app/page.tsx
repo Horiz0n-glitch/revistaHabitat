@@ -87,45 +87,47 @@ export default async function HomePage() {
             {/* Hero Section */}
             {featuredArticle && (
               <section className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-24 py-12 md:py-20">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                  <div className="space-y-6">
-                    <Badge variant="secondary" className="text-xs">
-                      {getCategoryName(featuredArticle)}
-                    </Badge>
-                    <h1 className="font-serif text-4xl md:text-5xl font-bold leading-tight text-balance">
-                      {featuredArticle.titulo}
-                    </h1>
-                    <p className="text-xl text-muted-foreground leading-relaxed text-pretty">
-                      {featuredArticle.extracto}
-                    </p>
-                    <div className="flex items-center gap-6 text-sm text-muted-foreground">
-                      <span>Por {getAuthorName(featuredArticle)}</span>
-                      <span className="flex items-center gap-1">
-                        <Clock className="h-4 w-4" />
-                        {new Date(featuredArticle.fecha_publicacion).toLocaleDateString("es-ES", {
-                          day: "numeric",
-                          month: "long",
-                          year: "numeric",
-                        })}
-                      </span>
+                <Link href={`/articulos/${featuredArticle.slug}`} className="block group cursor-pointer">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div className="space-y-6">
+                      <Badge variant="secondary" className="text-xs">
+                        {getCategoryName(featuredArticle)}
+                      </Badge>
+                      <h1 className="font-serif text-4xl md:text-5xl font-bold leading-tight text-balance group-hover:text-accent transition-colors">
+                        {featuredArticle.titulo}
+                      </h1>
+                      <p className="text-xl text-muted-foreground leading-relaxed text-pretty">
+                        {featuredArticle.extracto}
+                      </p>
+                      <div className="flex items-center gap-6 text-sm text-muted-foreground">
+                        <span>Por {getAuthorName(featuredArticle)}</span>
+                        <span className="flex items-center gap-1">
+                          <Clock className="h-4 w-4" />
+                          {new Date(featuredArticle.fecha_publicacion).toLocaleDateString("es-ES", {
+                            day: "numeric",
+                            month: "long",
+                            year: "numeric",
+                          })}
+                        </span>
+                      </div>
+                      <div className="inline-flex">
+                        <Button size="lg" className="group/button pointer-events-none">
+                          Leer artículo
+                          <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                        </Button>
+                      </div>
                     </div>
-                    <Button size="lg" className="group" asChild>
-                      <Link href={`/articulos/${featuredArticle.slug}`}>
-                        Leer artículo
-                        <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                      </Link>
-                    </Button>
+                    <div className="relative aspect-4/3 overflow-hidden bg-muted rounded-lg">
+                      <Image
+                        src={getAssetUrl(featuredArticle.imagen_principal) || "/placeholder.svg"}
+                        alt={featuredArticle.titulo}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        priority
+                      />
+                    </div>
                   </div>
-                  <div className="relative aspect-4/3 overflow-hidden bg-muted rounded-lg">
-                    <Image
-                      src={getAssetUrl(featuredArticle.imagen_principal) || "/placeholder.svg"}
-                      alt={featuredArticle.titulo}
-                      fill
-                      className="object-cover"
-                      priority
-                    />
-                  </div>
-                </div>
+                </Link>
               </section>
             )}
 
@@ -192,36 +194,38 @@ export default async function HomePage() {
             {featuredInterview && (
               <section className="bg-muted py-16">
                 <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-24">
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                    <div className="relative aspect-4/3 overflow-hidden order-2 lg:order-1 bg-background rounded-lg">
-                      <Image
-                        src={getAssetUrl(featuredInterview.imagen_principal) || "/placeholder.svg"}
-                        alt={featuredInterview.titulo}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <div className="space-y-6 order-1 lg:order-2">
-                      <Badge variant="secondary" className="text-xs">
-                        {getCategoryName(featuredInterview)}
-                      </Badge>
-                      <h2 className="font-serif text-3xl md:text-4xl font-bold text-balance">
-                        {featuredInterview.titulo}
-                      </h2>
-                      <div className="space-y-2">
-                        <p className="font-medium">{getAuthorName(featuredInterview)}</p>
+                  <Link href={`/articulos/${featuredInterview.slug}`} className="block group cursor-pointer">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                      <div className="relative aspect-4/3 overflow-hidden order-2 lg:order-1 bg-background rounded-lg">
+                        <Image
+                          src={getAssetUrl(featuredInterview.imagen_principal) || "/placeholder.svg"}
+                          alt={featuredInterview.titulo}
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
                       </div>
-                      <p className="text-muted-foreground leading-relaxed text-pretty">
-                        {featuredInterview.extracto}
-                      </p>
-                      <Button variant="outline" size="lg" className="group bg-transparent" asChild>
-                        <Link href={`/articulos/${featuredInterview.slug}`}>
-                          Leer artículo
-                          <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                        </Link>
-                      </Button>
+                      <div className="space-y-6 order-1 lg:order-2">
+                        <Badge variant="secondary" className="text-xs">
+                          {getCategoryName(featuredInterview)}
+                        </Badge>
+                        <h2 className="font-serif text-3xl md:text-4xl font-bold text-balance group-hover:text-accent transition-colors">
+                          {featuredInterview.titulo}
+                        </h2>
+                        <div className="space-y-2">
+                          <p className="font-medium">{getAuthorName(featuredInterview)}</p>
+                        </div>
+                        <p className="text-muted-foreground leading-relaxed text-pretty">
+                          {featuredInterview.extracto}
+                        </p>
+                        <div className="inline-flex">
+                          <Button variant="outline" size="lg" className="group/button bg-transparent pointer-events-none">
+                            Leer artículo
+                            <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                          </Button>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  </Link>
                 </div>
               </section>
             )}
