@@ -46,6 +46,15 @@ export const navigationCategories = [
     ],
   },
   {
+    name: "Instituciones",
+    slug: "instituciones",
+    subcategories: [
+      { name: "Instituc. de Patrimonio", slug: "instituc-de-patrimonio" },
+      { name: "Facultades, instituc. y escuelas", slug: "facultades-instituc-y-escuelas" },
+      { name: "Museos", slug: "museos" },
+    ],
+  },
+  {
     name: "RSE",
     slug: "rse",
     subcategories: [
