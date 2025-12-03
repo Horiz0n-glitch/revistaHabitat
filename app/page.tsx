@@ -35,6 +35,12 @@ export default async function HomePage() {
   const getCategorySlug = (article: Articulo) =>
     typeof article.categoria === "object" && article.categoria ? article.categoria.slug : "general"
 
+  const getSubcategoryName = (article: Articulo) =>
+    typeof article.subcategoria === "object" && article.subcategoria ? article.subcategoria.nombre : null
+
+  const getSubcategorySlug = (article: Articulo) =>
+    typeof article.subcategoria === "object" && article.subcategoria ? article.subcategoria.slug : null
+
   const getAuthorName = (article: Articulo) =>
     typeof article.autor === "object" && article.autor ? article.autor.nombre : "Revista Habitat"
 
@@ -90,9 +96,16 @@ export default async function HomePage() {
                 <Link href={`/articulos/${featuredArticle.slug}`} className="block group cursor-pointer">
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     <div className="space-y-6">
-                      <Badge variant="secondary" className="text-xs">
-                        {getCategoryName(featuredArticle)}
-                      </Badge>
+                      <div className="flex gap-2">
+                        <Badge variant="secondary" className="text-xs">
+                          {getCategoryName(featuredArticle)}
+                        </Badge>
+                        {getSubcategoryName(featuredArticle) && (
+                          <Badge variant="outline" className="text-xs">
+                            {getSubcategoryName(featuredArticle)}
+                          </Badge>
+                        )}
+                      </div>
                       <h1 className="font-serif text-4xl md:text-5xl font-bold leading-tight text-balance group-hover:text-accent transition-colors">
                         {featuredArticle.titulo}
                       </h1>
@@ -161,9 +174,16 @@ export default async function HomePage() {
                           />
                         </div>
                         <div className="space-y-2">
-                          <Badge variant="secondary" className="text-xs">
-                            {getCategoryName(article)}
-                          </Badge>
+                          <div className="flex gap-2">
+                            <Badge variant="secondary" className="text-xs">
+                              {getCategoryName(article)}
+                            </Badge>
+                            {getSubcategoryName(article) && (
+                              <Badge variant="outline" className="text-xs">
+                                {getSubcategoryName(article)}
+                              </Badge>
+                            )}
+                          </div>
                           <h3 className="font-serif text-xl font-bold group-hover:text-accent transition-colors text-balance line-clamp-2">
                             {article.titulo}
                           </h3>
@@ -205,9 +225,16 @@ export default async function HomePage() {
                         />
                       </div>
                       <div className="space-y-6 order-1 lg:order-2">
-                        <Badge variant="secondary" className="text-xs">
-                          {getCategoryName(featuredInterview)}
-                        </Badge>
+                        <div className="flex gap-2">
+                          <Badge variant="secondary" className="text-xs">
+                            {getCategoryName(featuredInterview)}
+                          </Badge>
+                          {getSubcategoryName(featuredInterview) && (
+                            <Badge variant="outline" className="text-xs">
+                              {getSubcategoryName(featuredInterview)}
+                            </Badge>
+                          )}
+                        </div>
                         <h2 className="font-serif text-3xl md:text-4xl font-bold text-balance group-hover:text-accent transition-colors">
                           {featuredInterview.titulo}
                         </h2>
@@ -266,9 +293,16 @@ export default async function HomePage() {
                                 />
                               </div>
                               <div className="space-y-2">
-                                <Badge variant="secondary" className="text-xs">
-                                  {getCategoryName(article)}
-                                </Badge>
+                                <div className="flex gap-2">
+                                  <Badge variant="secondary" className="text-xs">
+                                    {getCategoryName(article)}
+                                  </Badge>
+                                  {getSubcategoryName(article) && (
+                                    <Badge variant="outline" className="text-xs">
+                                      {getSubcategoryName(article)}
+                                    </Badge>
+                                  )}
+                                </div>
                                 <h3 className="font-serif text-lg font-bold group-hover:text-accent transition-colors text-balance line-clamp-2">
                                   {article.titulo}
                                 </h3>
@@ -317,9 +351,16 @@ export default async function HomePage() {
                                   />
                                 </div>
                                 <div className="sm:col-span-2 space-y-3">
-                                  <Badge variant="secondary" className="text-xs">
-                                    {getCategoryName(interview)}
-                                  </Badge>
+                                  <div className="flex gap-2">
+                                    <Badge variant="secondary" className="text-xs">
+                                      {getCategoryName(interview)}
+                                    </Badge>
+                                    {getSubcategoryName(interview) && (
+                                      <Badge variant="outline" className="text-xs">
+                                        {getSubcategoryName(interview)}
+                                      </Badge>
+                                    )}
+                                  </div>
                                   <h4 className="font-serif text-xl font-bold group-hover:text-accent transition-colors text-balance">
                                     {interview.titulo}
                                   </h4>

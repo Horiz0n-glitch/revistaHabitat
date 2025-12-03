@@ -62,6 +62,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   }
 
   const categoria = typeof articulo.categoria === "object" ? articulo.categoria : null
+  const subcategoria = typeof articulo.subcategoria === "object" ? articulo.subcategoria : null
   const autor = typeof articulo.autor === "object" ? articulo.autor : null
 
   // Get related articles (same category)
@@ -103,7 +104,10 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               <div className="max-w-4xl space-y-8">
                 {/* Meta */}
                 <div className="space-y-4">
-                  {categoria && <Badge variant="secondary">{categoria.nombre}</Badge>}
+                  <div className="flex gap-2">
+                    {categoria && <Badge variant="secondary">{categoria.nombre}</Badge>}
+                    {subcategoria && <Badge variant="outline">{subcategoria.nombre}</Badge>}
+                  </div>
                   <h1 className="font-serif text-4xl md:text-6xl font-bold leading-tight text-balance">
                     {articulo.titulo}
                   </h1>
@@ -206,11 +210,18 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                           />
                         </div>
                         <div className="space-y-2">
-                          {relCategoria && (
-                            <Badge variant="secondary" className="text-xs">
-                              {relCategoria.nombre}
-                            </Badge>
-                          )}
+                          <div className="flex gap-2">
+                            {relCategoria && (
+                              <Badge variant="secondary" className="text-xs">
+                                {relCategoria.nombre}
+                              </Badge>
+                            )}
+                            {typeof related.subcategoria === "object" && related.subcategoria && (
+                              <Badge variant="outline" className="text-xs">
+                                {related.subcategoria.nombre}
+                              </Badge>
+                            )}
+                          </div>
                           <h3 className="font-serif text-xl font-bold group-hover:text-accent transition-colors text-balance">
                             {related.titulo}
                           </h3>

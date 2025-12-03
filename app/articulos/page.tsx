@@ -96,12 +96,19 @@ export default async function ArticlesPage() {
 
                       {/* Content */}
                       <div className="space-y-3">
-                        {categoria && (
-                          <ClickableCategoryBadge
-                            categorySlug={categoria.slug}
-                            categoryName={categoria.nombre}
-                          />
-                        )}
+                        <div className="flex gap-2">
+                          {categoria && (
+                            <ClickableCategoryBadge
+                              categorySlug={categoria.slug}
+                              categoryName={categoria.nombre}
+                            />
+                          )}
+                          {typeof articulo.subcategoria === "object" && articulo.subcategoria && (
+                            <Badge variant="outline" className="text-xs">
+                              {articulo.subcategoria.nombre}
+                            </Badge>
+                          )}
+                        </div>
 
                         <Link href={`/articulos/${articulo.slug}`} className="block">
                           <h2 className="font-serif text-xl font-bold group-hover:text-accent transition-colors text-balance line-clamp-2">

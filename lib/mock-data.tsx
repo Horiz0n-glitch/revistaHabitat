@@ -52,19 +52,20 @@ export const navigationCategories = [
       { name: "Instituc. de Patrimonio", slug: "instituc-de-patrimonio" },
       { name: "Facultades, instituc. y escuelas", slug: "facultades-instituc-y-escuelas" },
       { name: "Museos", slug: "museos" },
+      { name: "Org. varios", slug: "org-varios" },
     ],
   },
   {
-    name: "RSE",
+    name: "RS",
     slug: "rse",
     subcategories: [
       { name: "Fundaciones y ONG", slug: "fundaciones-y-ong" },
-      { name: "Capacitaciones RSE", slug: "capacitaciones-rse" },
-      { name: "Cursos y Eventos RSE", slug: "cursos-y-eventos-rse" },
-      { name: "Jornadas RSE", slug: "jornadas-rse" },
-      { name: "Educación RSE", slug: "educacion-rse" },
-      { name: "Empresas RSE", slug: "empresas-rse" },
-      { name: "Noticias RSE", slug: "noticias-rse" },
+      { name: "Capacitaciones RS", slug: "capacitaciones-rse" },
+      { name: "Cursos y Eventos RS", slug: "cursos-y-eventos-rse" },
+      { name: "Jornadas RS", slug: "jornadas-rse" },
+      { name: "Educación RS", slug: "educacion-rse" },
+      { name: "Empresas RS", slug: "empresas-rse" },
+      { name: "Noticias RS", slug: "noticias-rse" },
     ],
   },
   {
@@ -73,6 +74,7 @@ export const navigationCategories = [
     subcategories: [
       { name: "Reciclaje", slug: "reciclaje" },
       { name: "Reformas / Remodelación", slug: "reformas-remodelacion" },
+      { name: "Mantenimiento", slug: "mantenimiento" },
     ],
   },
   {
@@ -95,6 +97,9 @@ export const navigationCategories = [
       { name: "Recorridos", slug: "recorridos" },
       { name: "Religioso", slug: "religioso" },
       { name: "Curiosidades", slug: "curiosidades" },
+      { name: "Informes", slug: "informes" },
+      { name: "Eventos", slug: "eventos" },
+      { name: "Novedades", slug: "novedades" },
     ],
   },
   {
@@ -109,6 +114,7 @@ export const navigationCategories = [
       { name: "Edificios", slug: "edificios" },
       { name: "Eventos Propiedades", slug: "eventos-propiedades" },
       { name: "Hoteles", slug: "hoteles" },
+      { name: "Novedades", slug: "novedades" },
     ],
   },
 ]
