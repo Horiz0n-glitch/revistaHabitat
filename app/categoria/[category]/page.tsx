@@ -10,6 +10,7 @@ import { getRandomAd } from "@/lib/mock-ads"
 import { getArticulos, getCategorias } from "@/lib/directus/queries"
 import { getAssetUrl } from "@/lib/directus/client"
 import type { Articulo, Categoria } from "@/lib/directus/types"
+import { categoryDescriptions, getCategoryDisplayName } from "@/lib/category-descriptions"
 
 export const revalidate = 60
 
@@ -73,9 +74,9 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
             <Badge variant="secondary" className="mb-4">
               Categoría
             </Badge>
-            <h1 className="font-serif text-4xl md:text-6xl font-bold mb-4">{categoria?.nombre}</h1>
+            <h1 className="font-serif text-4xl md:text-6xl font-bold mb-4">{getCategoryDisplayName(categoria?.nombre)}</h1>
             <p className="text-lg text-muted-foreground max-w-2xl">
-              Explora artículos sobre {categoria?.nombre?.toLowerCase()}
+              {categoryDescriptions[categoria?.slug || ''] || `Explora artículos sobre ${categoria?.nombre?.toLowerCase()}`}
             </p>
           </div>
         </section>

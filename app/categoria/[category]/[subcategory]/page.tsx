@@ -9,6 +9,7 @@ import { getCategorias, getArticulos } from "@/lib/directus/queries"
 import { getAssetUrl } from "@/lib/directus/client"
 import type { Articulo, Categoria } from "@/lib/directus/types"
 import { InstitutionContactForm } from "@/components/institution-contact-form"
+import { categoryDescriptions, getCategoryDisplayName } from "@/lib/category-descriptions"
 
 export const revalidate = 60
 
@@ -72,10 +73,10 @@ export default async function SubcategoryPage({
               </Link>
               <ChevronRight className="h-4 w-4" />
               <Link href={`/categoria/${categorySlug}`} className="hover:text-foreground transition-colors">
-                {categoria?.nombre}
+                {getCategoryDisplayName(categoria?.nombre)}
               </Link>
               <ChevronRight className="h-4 w-4" />
-              <span className="text-foreground">{subcategoria?.nombre}</span>
+              <span className="text-foreground">{getCategoryDisplayName(subcategoria?.nombre)}</span>
             </nav>
           </div>
         </section>
@@ -84,11 +85,11 @@ export default async function SubcategoryPage({
         <section className="border-b border-border py-12 md:py-16">
           <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-24">
             <Badge variant="secondary" className="mb-4">
-              {categoria?.nombre}
+              {getCategoryDisplayName(categoria?.nombre)}
             </Badge>
-            <h1 className="font-serif text-4xl md:text-6xl font-bold mb-4">{subcategoria?.nombre}</h1>
+            <h1 className="font-serif text-4xl md:text-6xl font-bold mb-4">{getCategoryDisplayName(subcategoria?.nombre)}</h1>
             <p className="text-lg text-muted-foreground max-w-2xl">
-              Explora artículos sobre {subcategoria?.nombre?.toLowerCase()}
+              {categoryDescriptions[subcategoria?.slug || ''] || `Explora artículos sobre ${subcategoria?.nombre?.toLowerCase()}`}
             </p>
           </div>
         </section>
@@ -109,7 +110,7 @@ export default async function SubcategoryPage({
               <p className="text-muted-foreground mb-4">No hay contenido disponible en esta subcategoría todavía.</p>
               <Link href={`/categoria/${categorySlug}`}>
                 <Badge variant="outline" className="cursor-pointer hover:bg-accent">
-                  Ver todo en {categoria?.nombre}
+                  Ver todo en {getCategoryDisplayName(categoria?.nombre)}
                 </Badge>
               </Link>
             </div>
