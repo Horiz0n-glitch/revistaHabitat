@@ -53,6 +53,7 @@ export const navigationCategories = [
       { name: "Facultades, instituc. y escuelas", slug: "facultades-instituc-y-escuelas" },
       { name: "Museos", slug: "museos" },
       { name: "Org. varios", slug: "org-varios" },
+      { name: "Fundaciones", slug: "fundaciones" },
     ],
   },
   {

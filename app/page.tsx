@@ -10,6 +10,7 @@ import { getRandomAd } from "@/lib/mock-ads"
 import { getArticulos } from "@/lib/directus/queries"
 import { getAssetUrl } from "@/lib/directus/client"
 import type { Articulo } from "@/lib/directus/types"
+import { getCategoryDisplayName } from "@/lib/category-descriptions"
 
 export const revalidate = 0
 
@@ -19,9 +20,13 @@ export default async function HomePage() {
   try {
     articulos = await getArticulos({
       limit: 30,
-      // Removed filter to allow all content types to potentially fill slots if needed, 
-      // or we can filter in memory if we want strict separation.
-      // For now, fetching everything to ensure we have content.
+      filter: {
+        categoria: {
+          slug: {
+            _nin: ["propiedades", "sustentable"]
+          }
+        }
+      }
     })
     console.log(`[HomePage] Fetched ${articulos.length} articles`)
   } catch (error) {
@@ -30,13 +35,15 @@ export default async function HomePage() {
 
   // Helper to safely get category name
   const getCategoryName = (article: Articulo) =>
-    typeof article.categoria === "object" && article.categoria ? article.categoria.nombre : "General"
+    getCategoryDisplayName(typeof article.categoria === "object" && article.categoria ? article.categoria.nombre : "General")
 
   const getCategorySlug = (article: Articulo) =>
     typeof article.categoria === "object" && article.categoria ? article.categoria.slug : "general"
 
-  const getSubcategoryName = (article: Articulo) =>
-    typeof article.subcategoria === "object" && article.subcategoria ? article.subcategoria.nombre : null
+  const getSubcategoryName = (article: Articulo) => {
+    const nombre = typeof article.subcategoria === "object" && article.subcategoria ? article.subcategoria.nombre : null
+    return nombre ? getCategoryDisplayName(nombre) : null
+  }
 
   const getSubcategorySlug = (article: Articulo) =>
     typeof article.subcategoria === "object" && article.subcategoria ? article.subcategoria.slug : null
@@ -395,7 +402,7 @@ export default async function HomePage() {
                             { name: "Turismo Cultural", slug: "turismo-cultural" },
                             { name: "Eventos y Cursos", slug: "eventos-cursos" },
                             { name: "Propiedades", slug: "propiedades" },
-                            { name: "RSE", slug: "rse" },
+                            { name: "Resp. Social", slug: "rse" },
                           ].map((category) => (
                             <Link
                               key={category.slug}

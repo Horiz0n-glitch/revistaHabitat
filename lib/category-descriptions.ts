@@ -1,7 +1,7 @@
 // Helper function to format category display names
 export function getCategoryDisplayName(name: string | undefined): string {
     if (!name) return ''
-    if (name === 'RS' || name === 'RSE') return 'RES p.Social'
+    if (name === 'RS' || name === 'RSE') return 'Resp. Social'
     return name
 }
 
@@ -42,9 +42,10 @@ export const categoryDescriptions: Record<string, string> = {
     "facultades-instituc-y-escuelas": "Centros educativos de formación en arquitectura, urbanismo y disciplinas relacionadas.",
     "museos": "Espacios museísticos dedicados a la arquitectura, el diseño y el patrimonio cultural.",
     "org-varios": "Otras organizaciones e instituciones vinculadas al sector de la arquitectura y el patrimonio.",
+    "fundaciones": "Directorio de fundaciones dedicadas al patrimonio, la arquitectura y el desarrollo cultural y social.",
 
     // Responsabilidad Social (RS)
-    "rse": "Iniciativas de responsabilidad social empresarial en arquitectura, construcción y desarrollo urbano sustentable.",
+    "rse": "Iniciativas de responsabilidad social en arquitectura, construcción y desarrollo urbano sustentable.",
     "fundaciones-y-ong": "Organizaciones sin fines de lucro dedicadas al desarrollo social, cultural y comunitario.",
     "capacitaciones-rse": "Programas de formación en responsabilidad social empresarial y desarrollo sustentable.",
     "cursos-y-eventos-rse": "Actividades educativas y encuentros sobre responsabilidad social en el sector de la construcción.",

@@ -13,6 +13,7 @@ import { ShareButtons } from "@/components/share-buttons"
 import { getArticuloBySlug, getArticulos, getArticuloGaleria } from "@/lib/directus/queries"
 import { getAssetUrl } from "@/lib/directus/client"
 import { processContent } from "@/lib/content-utils"
+import { getCategoryDisplayName } from "@/lib/category-descriptions"
 
 export const revalidate = 60
 
@@ -105,8 +106,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 {/* Meta */}
                 <div className="space-y-4">
                   <div className="flex gap-2">
-                    {categoria && <Badge variant="secondary">{categoria.nombre}</Badge>}
-                    {subcategoria && <Badge variant="outline">{subcategoria.nombre}</Badge>}
+                    {categoria && <Badge variant="secondary">{getCategoryDisplayName(categoria.nombre)}</Badge>}
+                    {subcategoria && <Badge variant="outline">{getCategoryDisplayName(subcategoria.nombre)}</Badge>}
                   </div>
                   <h1 className="font-serif text-4xl md:text-6xl font-bold leading-tight text-balance">
                     {articulo.titulo}
@@ -213,12 +214,12 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                           <div className="flex gap-2">
                             {relCategoria && (
                               <Badge variant="secondary" className="text-xs">
-                                {relCategoria.nombre}
+                                {getCategoryDisplayName(relCategoria.nombre)}
                               </Badge>
                             )}
                             {typeof related.subcategoria === "object" && related.subcategoria && (
                               <Badge variant="outline" className="text-xs">
-                                {related.subcategoria.nombre}
+                                {getCategoryDisplayName(related.subcategoria.nombre)}
                               </Badge>
                             )}
                           </div>

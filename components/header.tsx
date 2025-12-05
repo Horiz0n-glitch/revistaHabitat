@@ -315,7 +315,7 @@ export function Header() {
                     className="block px-3 py-2 text-sm font-semibold text-gray-900 hover:bg-gray-100 hover:text-gray-900 transition-colors"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    {category.name === "RS" ? "RES p.Social" : category.name}
+                    {category.name === "RS" ? "Resp. Social" : category.name}
                   </Link>
                 ))}
               </div>
@@ -337,7 +337,7 @@ export function Header() {
                     href={`/categoria/${category.slug}`}
                     className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md transition-colors whitespace-nowrap"
                   >
-                    {category.name === "RS" ? "RES p.Social" : category.name}
+                    {category.name === "RS" ? "Resp. Social" : category.name}
                     {category.subcategories && category.subcategories.length > 0 && (
                       <ChevronDown className="h-3.5 w-3.5 opacity-60" />
                     )}

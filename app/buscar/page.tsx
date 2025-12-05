@@ -7,6 +7,7 @@ import { Clock, Search } from "lucide-react"
 import { getArticulos } from "@/lib/directus/queries"
 import { getAssetUrl } from "@/lib/directus/client"
 import type { Articulo } from "@/lib/directus/types"
+import { getCategoryDisplayName } from "@/lib/category-descriptions"
 
 export default async function SearchPage({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
   const params = await searchParams
@@ -85,7 +86,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
                           <div className="space-y-3">
                             {categoria && (
                               <Badge variant="secondary" className="text-xs">
-                                {categoria.nombre}
+                                {getCategoryDisplayName(categoria.nombre)}
                               </Badge>
                             )}
                             <h3 className="font-serif text-xl font-bold group-hover:text-accent transition-colors text-balance">

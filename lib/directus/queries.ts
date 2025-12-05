@@ -1,6 +1,6 @@
 import { readItems, readItem } from "@directus/sdk"
 import { getDirectusClient } from "./client"
-import type { Articulo, Categoria, Autor, Etiqueta, ArticuloFile } from "./types"
+import type { Articulo, Categoria, Autor, Etiqueta, ArticuloFile, Fundacion } from "./types"
 
 // ===== ARTICULOS (ARTICLES) =====
 
@@ -438,4 +438,63 @@ export async function searchContent(query: string) {
 
 export async function incrementViews(collection: "articles" | "interviews", id: number) {
   console.log(`[v0] Would increment views for ${collection} ${id}`)
+}
+
+// ===== FUNDACIONES =====
+
+export async function getFundaciones(options?: {
+  limit?: number
+  offset?: number
+}) {
+  try {
+    const client = getDirectusClient()
+
+    const result = await client.request(
+      readItems("fundaciones", {
+        filter: {
+          estado: { _eq: "publicado" },
+        },
+        sort: ["orden", "nombre"],
+        limit: options?.limit || 100,
+        offset: options?.offset || 0,
+      })
+    )
+    return result as Fundacion[]
+  } catch (error: any) {
+    // Silently return empty array if collection doesn't exist yet
+    if (error?.errors?.[0]?.extensions?.code === 'FORBIDDEN' ||
+      error?.message?.includes('fundaciones')) {
+      console.log("[v0] Fundaciones collection not configured yet - returning empty array")
+    } else {
+      console.error("[v0] Error in getFundaciones:", error)
+    }
+    return []
+  }
+}
+
+export async function getFundacionBySlug(slug: string): Promise<Fundacion | null> {
+  try {
+    const client = getDirectusClient()
+
+    const fundaciones = await client.request(
+      readItems("fundaciones", {
+        filter: {
+          slug: { _eq: slug },
+          estado: { _eq: "publicado" },
+        },
+        limit: 1,
+      })
+    ) as Fundacion[]
+
+    return fundaciones[0] || null
+  } catch (error: any) {
+    // Silently return null if collection doesn't exist yet
+    if (error?.errors?.[0]?.extensions?.code === 'FORBIDDEN' ||
+      error?.message?.includes('fundaciones')) {
+      console.log("[v0] Fundaciones collection not configured yet")
+    } else {
+      console.error("[v0] Error in getFundacionBySlug:", error)
+    }
+    return null
+  }
 }

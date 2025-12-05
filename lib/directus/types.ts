@@ -159,6 +159,26 @@ export interface ContactoInstitucion {
   estado: "pendiente" | "contactado" | "publicado" | "rechazado"
 }
 
+export interface Fundacion {
+  id: number
+  nombre: string
+  slug: string
+  logo?: string
+  descripcion: string
+  biografia?: string
+  sitio_web?: string
+  email?: string
+  telefono?: string
+  direccion?: string
+  instagram?: string
+  facebook?: string
+  linkedin?: string
+  twitter?: string
+  estado: "publicado" | "borrador" | "archivado"
+  orden?: number
+  date_created?: string
+}
+
 export interface DirectusSchema {
   categorias: Categoria[]
   etiquetas: Etiqueta[]
@@ -172,6 +192,7 @@ export interface DirectusSchema {
   anuncios: Anuncio[]
   mensajes_contacto: MensajeContacto[]
   contacto_instituciones: ContactoInstitucion[]
+  fundaciones: Fundacion[]
 }
 
 // ===== LEGACY TYPES (for backwards compatibility) =====

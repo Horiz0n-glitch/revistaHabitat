@@ -5,10 +5,11 @@ import Link from "next/link"
 import Image from "next/image"
 import { Clock, ChevronRight } from "lucide-react"
 import { notFound } from "next/navigation"
-import { getCategorias, getArticulos } from "@/lib/directus/queries"
+import { getCategorias, getArticulos, getFundaciones } from "@/lib/directus/queries"
 import { getAssetUrl } from "@/lib/directus/client"
-import type { Articulo, Categoria } from "@/lib/directus/types"
+import type { Articulo, Categoria, Fundacion } from "@/lib/directus/types"
 import { InstitutionContactForm } from "@/components/institution-contact-form"
+import { FundacionesDirectory } from "@/components/fundaciones-directory"
 import { categoryDescriptions, getCategoryDisplayName } from "@/lib/category-descriptions"
 
 export const revalidate = 60
@@ -29,6 +30,7 @@ export default async function SubcategoryPage({
   let categoria: Categoria | null = null
   let subcategoria: Categoria | null = null
   let articulos: Articulo[] = []
+  let fundaciones: Fundacion[] = []
 
   try {
     const categorias = await getCategorias()
@@ -54,6 +56,11 @@ export default async function SubcategoryPage({
       // Check if article belongs to this subcategory either via subcategoria field OR categoria field
       return subId === subcategoria!.id || catId === subcategoria!.id
     })
+
+    // If this is the fundaciones subcategory, fetch fundaciones
+    if (subcategorySlug === 'fundaciones') {
+      fundaciones = await getFundaciones()
+    }
   } catch (error) {
     console.error("[v0] Error fetching subcategory data:", error)
     notFound()
@@ -102,6 +109,13 @@ export default async function SubcategoryPage({
               <InstitutionContactForm />
             </section>
           )}
+
+        {/* Fundaciones Directory - Only for fundaciones subcategory */}
+        {subcategorySlug === 'fundaciones' && (
+          <section className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-24 py-12 md:py-16 bg-muted/30">
+            <FundacionesDirectory fundaciones={fundaciones} />
+          </section>
+        )}
 
         {/* Content Grid */}
         <section className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-24 py-12">

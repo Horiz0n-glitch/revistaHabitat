@@ -11,6 +11,7 @@ import { getArticulos, getCategorias } from "@/lib/directus/queries"
 import { getAssetUrl } from "@/lib/directus/client"
 import type { Articulo, Categoria } from "@/lib/directus/types"
 import { ClickableCategoryBadge } from "@/components/clickable-category-badge"
+import { getCategoryDisplayName } from "@/lib/category-descriptions"
 
 export const revalidate = 60 // Revalidate every 60 seconds
 
@@ -59,7 +60,7 @@ export default async function ArticlesPage() {
                 {categoriasConArticulos.map((categoria) => (
                   <Link key={categoria.id} href={`/categoria/${categoria.slug}`}>
                     <Button variant="outline" size="sm" className="whitespace-nowrap bg-transparent">
-                      {categoria.nombre}
+                      {getCategoryDisplayName(categoria.nombre)}
                     </Button>
                   </Link>
                 ))}
@@ -105,7 +106,7 @@ export default async function ArticlesPage() {
                           )}
                           {typeof articulo.subcategoria === "object" && articulo.subcategoria && (
                             <Badge variant="outline" className="text-xs">
-                              {articulo.subcategoria.nombre}
+                              {getCategoryDisplayName(articulo.subcategoria.nombre)}
                             </Badge>
                           )}
                         </div>

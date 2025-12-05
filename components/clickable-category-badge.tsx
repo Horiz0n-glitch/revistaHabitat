@@ -15,7 +15,7 @@ export function ClickableCategoryBadge({ categorySlug, categoryName }: Clickable
             onClick={(e) => e.stopPropagation()}
         >
             <Badge variant="secondary" className="text-xs cursor-pointer hover:bg-secondary/80">
-                {categoryName === "RSE" ? "Resp.Social" : categoryName}
+                {categoryName === "RSE" ? "Resp. Social" : categoryName}
             </Badge>
         </Link>
     )
