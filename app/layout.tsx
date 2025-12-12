@@ -16,9 +16,16 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: "Revista Habitat - Arquitectura y Diseño",
-  description: "Revista digital de arquitectura, diseño de interiores y urbanismo",
+  title: "Revista Habitat - Arquitectura y Patrimonio",
+  description: "Revista de arquitectura, conservación, restauración, historia y patrimonio",
   generator: "Horizont",
+  openGraph: {
+    title: "Revista Habitat",
+    description: "Revista de arquitectura, conservación, restauración, historia y patrimonio",
+    type: "website",
+    locale: "es_AR",
+    siteName: "Revista Habitat",
+  },
 }
 
 export default function RootLayout({
