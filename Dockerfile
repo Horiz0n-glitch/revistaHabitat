@@ -12,6 +12,12 @@ RUN npm ci --legacy-peer-deps
 # Copiar código fuente
 COPY . .
 
+# Argumentos de construcción para variables públicas
+ARG NEXT_PUBLIC_URL
+ARG NEXT_PUBLIC_DIRECTUS_URL
+ENV NEXT_PUBLIC_URL=$NEXT_PUBLIC_URL
+ENV NEXT_PUBLIC_DIRECTUS_URL=$NEXT_PUBLIC_DIRECTUS_URL
+
 # Build de la aplicación
 RUN npm run build
 
