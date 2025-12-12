@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
     const imageUrl = articulo.imagen_principal
       ? getAssetUrlWithTransforms(articulo.imagen_principal, { width: 1200, height: 630, fit: "cover", format: "jpg" })
-      : `${process.env.NEXT_PUBLIC_URL || 'https://revistahabitat.com'}/og-image.jpg` // Fallback image
+      : '/og-image.jpg' // Fallback image (resolved using metadataBase)
 
     const title = `${articulo.titulo} - Revista Habitat`
     const description = articulo.extracto || "Lea este artículo en Revista Habitat, arquitectura, diseño y patrimonio."

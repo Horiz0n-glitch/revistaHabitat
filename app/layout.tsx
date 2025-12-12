@@ -16,6 +16,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_URL || "https://revistahabitat.com.ar"),
   title: "Revista Habitat - Arquitectura y Patrimonio",
   description: "Revista de arquitectura, conservación, restauración, historia y patrimonio",
   generator: "Horizont",
