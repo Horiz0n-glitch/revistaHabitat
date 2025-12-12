@@ -1,18 +1,22 @@
 {
   "$schema": "https://dokploy.com/schema.json",
-  "buildPack": "nixpacks",
+  "buildPack": "docker",
   "name": "Revista Habitat",
   "description": "Next.js application for Revista Habitat",
   "language": "nodejs",
   "framework": "nextjs",
-  "dockerfile": false,
+  "dockerfile": true,
   "nixpacks": {
-    "providers": ["nodejs"],
+    "providers": [
+      "nodejs"
+    ],
     "nodeVersion": "20"
   },
   "buildCommand": "npm run build",
   "startCommand": "npm start",
-  "ports": [3000],
+  "ports": [
+    3000
+  ],
   "environment": {
     "NODE_ENV": "production",
     "NPM_PRODUCTION": "true"

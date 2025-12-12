@@ -16,26 +16,36 @@ COPY . .
 RUN npm run build
 
 # Stage 2: Runtime
-FROM node:20-alpine
+FROM node:20-alpine AS runner
 
 WORKDIR /app
 
-# Copiar package files
-COPY package*.json ./
+ENV NODE_ENV=production
 
-# Instalar solo dependencias de producción
-RUN npm ci --only=production
+# Crear usuario no root por seguridad
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
 
-# Copiar build desde el stage anterior
-COPY --from=builder /app/.next ./.next
+# Copiar archivos necesarios del builder (Standalone mode)
 COPY --from=builder /app/public ./public
+# Set permission for prerender cache
+RUN mkdir .next
+RUN chown nextjs:nodejs .next
 
-# Exponer puerto
+# Automatically leverage output traces to reduce image size
+# https://nextjs.org/docs/advanced-features/output-file-tracing
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+USER nextjs
+
 EXPOSE 3000
 
-# Health check
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
+
+# Health check (ajustado para standalone server)
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
   CMD node -e "require('http').get('http://localhost:3000', (r) => {if (r.statusCode !== 200) throw new Error(r.statusCode)})"
 
-# Comando de inicio
-CMD ["npm", "start"]
+CMD ["node", "server.js"]

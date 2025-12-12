@@ -1,10 +1,21 @@
+"use client"
+
+import { useState } from "react"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Mail, Star, CheckCircle2, TrendingUp, Users, Eye } from 'lucide-react'
+import { Mail, Star, CheckCircle2, TrendingUp, Users, Eye, FileText, Download, X } from 'lucide-react'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
 
 export default function PublicidadPage() {
+  const [selectedPdf, setSelectedPdf] = useState<{ url: string, title: string } | null>(null)
+
   const pricingTiers = [
     {
       type: "Banner Superior (Leaderboard)",
@@ -110,6 +121,77 @@ export default function PublicidadPage() {
           </div>
         </section>
 
+        {/* Media Kits Section */}
+        <section className="bg-muted/50 py-16">
+          <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-24">
+            <h2 className="font-serif text-3xl md:text-4xl font-bold mb-12 text-center">Descarga nuestros Media Kits</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                {
+                  title: "Publicidad Web",
+                  description: "Especificaciones y tarifas para banners y anuncios en nuestro sitio web.",
+                  url: "https://pub-58d5e70d4f5a4ae1a1c5f11307ac80cb.r2.dev/media%20kit/revista%20habitat%20website.pdf",
+                },
+                {
+                  title: "Revista Digital",
+                  description: "Formatos y costos para publicidad en nuestra edición digital interactiva.",
+                  url: "https://pub-58d5e70d4f5a4ae1a1c5f11307ac80cb.r2.dev/media%20kit/Media%20Kit%20revista%20Habitat%20N%C2%BA%201%20-%20Edici%C3%B3n%20Digital%20%20(3).pdf",
+                },
+                {
+                  title: "Edición Papel",
+                  description: "Tarifario y medidas para avisos en nuestra tradicional revista impresa.",
+                  url: "https://pub-58d5e70d4f5a4ae1a1c5f11307ac80cb.r2.dev/media%20kit/Publicidad%20en%20la%20revista%20Habitat%20N%C2%BA%2082%20-%20Edici%C3%B3n%20en%20Papel%20(2).pdf",
+                },
+              ].map((kit, index) => (
+                <Card key={index} className="flex flex-col h-full hover:shadow-lg transition-shadow">
+                  <CardHeader>
+                    <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center mb-4">
+                      <FileText className="h-6 w-6 text-accent" />
+                    </div>
+                    <CardTitle className="font-serif text-xl">{kit.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent className="flex-1 flex flex-col justify-between">
+                    <p className="text-sm text-muted-foreground mb-6">{kit.description}</p>
+                    <div className="space-y-3">
+                      <Button
+                        variant="outline"
+                        className="w-full gap-2"
+                        onClick={() => setSelectedPdf({ url: kit.url, title: kit.title })}
+                      >
+                        <Eye className="h-4 w-4" />
+                        Ver Online
+                      </Button>
+                      <Button asChild className="w-full gap-2">
+                        <a href={kit.url} target="_blank" rel="noopener noreferrer">
+                          <Download className="h-4 w-4" />
+                          Descargar PDF
+                        </a>
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <Dialog open={selectedPdf !== null} onOpenChange={(open) => !open && setSelectedPdf(null)}>
+          <DialogContent className="max-w-5xl h-[90vh] flex flex-col p-0">
+            <div className="p-4 border-b flex items-center justify-between">
+              <DialogTitle className="font-serif">{selectedPdf?.title}</DialogTitle>
+            </div>
+            <div className="flex-1 w-full h-full bg-muted/20">
+              {selectedPdf && (
+                <iframe
+                  src={selectedPdf.url}
+                  className="w-full h-full"
+                  title={selectedPdf.title}
+                />
+              )}
+            </div>
+          </DialogContent>
+        </Dialog>
+
         {/* Pricing Table Section */}
         <section className="bg-muted py-16">
           <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-24">
@@ -145,9 +227,8 @@ export default function PublicidadPage() {
                               {[...Array(4)].map((_, i) => (
                                 <Star
                                   key={i}
-                                  className={`h-4 w-4 ${
-                                    i < tier.visibility ? "fill-amber-400 text-amber-400" : "text-gray-300"
-                                  }`}
+                                  className={`h-4 w-4 ${i < tier.visibility ? "fill-amber-400 text-amber-400" : "text-gray-300"
+                                    }`}
                                 />
                               ))}
                             </div>

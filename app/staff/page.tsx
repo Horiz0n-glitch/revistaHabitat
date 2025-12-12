@@ -6,12 +6,17 @@ import { Card, CardContent } from "@/components/ui/card"
 export default function StaffPage() {
   const editorialTeam = [
     {
-      title: "Director General",
-      name: "Eduardo Leguizamón",
-      email: "eleguizamon@revistahabitat.com",
+      title: "Directora Editorial",
+      name: "María Emilia Echezarreta",
+      email: "cm.emiliaechezarreta@gmail.com",
     },
     {
-      title: "Directora Editorial",
+      title: "Director Periodístico",
+      name: "Arq, Alberto Alfaro",
+      email: "alfaroarq@yahoo.com.ar",
+    },
+    {
+      title: "Editor Asistente",
       name: "Miriam Blas",
       email: "miriam.e.blas@revistahabitat.com",
     },
@@ -19,11 +24,6 @@ export default function StaffPage() {
       title: "Editor Web",
       name: "Gonzalo Galeano",
       email: "gonzalo.galeano@revistahabitat.com",
-    },
-    {
-      title: "Director Periodístico",
-      name: "Arq. Guillermo R. García",
-      email: "arqguillermogarcia@gmail.com",
     },
     {
       title: "Diseño Web",
