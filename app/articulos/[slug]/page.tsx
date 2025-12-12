@@ -15,7 +15,68 @@ import { getAssetUrl } from "@/lib/directus/client"
 import { processContent } from "@/lib/content-utils"
 import { getCategoryDisplayName } from "@/lib/category-descriptions"
 
+import { type Metadata } from "next"
+import { getAssetUrlWithTransforms } from '@/lib/directus/client'
+
+// ... existing imports
+
 export const revalidate = 60
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params
+
+  try {
+    const articulo = await getArticuloBySlug(decodeURIComponent(slug))
+
+    if (!articulo) {
+      return {
+        title: "Artículo no encontrado - Revista Habitat",
+        description: "No pudimos encontrar el artículo que buscas.",
+      }
+    }
+
+    const imageUrl = articulo.imagen_principal
+      ? getAssetUrlWithTransforms(articulo.imagen_principal, { width: 1200, height: 630, fit: "cover", format: "jpg" })
+      : `${process.env.NEXT_PUBLIC_URL || 'https://revistahabitat.com'}/og-image.jpg` // Fallback image
+
+    const title = `${articulo.titulo} - Revista Habitat`
+    const description = articulo.extracto || "Lea este artículo en Revista Habitat, arquitectura, diseño y patrimonio."
+
+    return {
+      title,
+      description,
+      openGraph: {
+        title,
+        description,
+        type: 'article',
+        publishedTime: articulo.fecha_publicacion,
+        authors: typeof articulo.autor === 'object' && articulo.autor?.nombre ? [articulo.autor.nombre] : undefined,
+        section: typeof articulo.categoria === 'object' ? articulo.categoria?.nombre : undefined,
+        images: [
+          {
+            url: imageUrl,
+            width: 1200,
+            height: 630,
+            alt: articulo.titulo,
+          },
+        ],
+        siteName: 'Revista Habitat',
+        locale: 'es_AR',
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title,
+        description,
+        images: [imageUrl],
+      },
+    }
+  } catch (error) {
+    console.error("Error generating metadata:", error)
+    return {
+      title: "Revista Habitat",
+    }
+  }
+}
 
 export async function generateStaticParams() {
   try {
