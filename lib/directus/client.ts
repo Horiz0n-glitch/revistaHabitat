@@ -1,7 +1,7 @@
 import { createDirectus, rest, authentication, staticToken } from "@directus/sdk"
 import type { DirectusSchema } from "./types"
 
-const DIRECTUS_URL = process.env.NEXT_PUBLIC_DIRECTUS_URL || ""
+const DIRECTUS_URL = process.env.NEXT_PUBLIC_DIRECTUS_URL || process.env.DIRECTUS_URL || ""
 const DIRECTUS_TOKEN = process.env.DIRECTUS_TOKEN || ""
 
 // Create Directus client with singleton pattern
@@ -9,7 +9,9 @@ let directusClient: ReturnType<typeof createDirectus<DirectusSchema>> | null = n
 
 export function getDirectusClient() {
   if (!DIRECTUS_URL) {
-    console.error("[v0] NEXT_PUBLIC_DIRECTUS_URL is not configured")
+    console.error(`[v0] Directus URL is not configured. 
+      NEXT_PUBLIC_DIRECTUS_URL: ${process.env.NEXT_PUBLIC_DIRECTUS_URL ? "SET" : "UNSET"}, 
+      DIRECTUS_URL: ${process.env.DIRECTUS_URL ? "SET" : "UNSET"}`)
     throw new Error("Directus URL not configured")
   }
 

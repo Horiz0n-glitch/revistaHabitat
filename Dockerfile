@@ -14,7 +14,7 @@ COPY . .
 
 # Argumentos de construcción para variables públicas
 ARG NEXT_PUBLIC_URL
-ARG NEXT_PUBLIC_DIRECTUS_URL
+ARG NEXT_PUBLIC_DIRECTUS_URL=https://habitat.horizontsoftware.com.ar
 ENV NEXT_PUBLIC_URL=$NEXT_PUBLIC_URL
 ENV NEXT_PUBLIC_DIRECTUS_URL=$NEXT_PUBLIC_DIRECTUS_URL
 
