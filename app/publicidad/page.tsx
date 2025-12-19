@@ -133,12 +133,12 @@ export default function PublicidadPage() {
                   url: "https://pub-58d5e70d4f5a4ae1a1c5f11307ac80cb.r2.dev/media%20kit/revista%20habitat%20website.pdf",
                 },
                 {
-                  title: "Revista Digital",
+                  title: "Revista Digital Bimestral",
                   description: "Formatos y costos para publicidad en nuestra edición digital interactiva.",
                   url: "https://pub-58d5e70d4f5a4ae1a1c5f11307ac80cb.r2.dev/media%20kit/Media%20Kit%20revista%20Habitat%20N%C2%BA%201%20-%20Edici%C3%B3n%20Digital%20%20(3).pdf",
                 },
                 {
-                  title: "Edición Papel",
+                  title: "Revista en papel Semestral",
                   description: "Tarifario y medidas para avisos en nuestra tradicional revista impresa.",
                   url: "https://pub-58d5e70d4f5a4ae1a1c5f11307ac80cb.r2.dev/media%20kit/Publicidad%20en%20la%20revista%20Habitat%20N%C2%BA%2082%20-%20Edici%C3%B3n%20en%20Papel%20(2).pdf",
                 },
