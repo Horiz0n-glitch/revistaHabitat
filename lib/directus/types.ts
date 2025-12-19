@@ -76,10 +76,10 @@ export interface Entrevista {
   slug: string
   extracto: string
   contenido: string
-  imagen_principal: string
+  imagen_destacada: string
   nombre_entrevistado: string
   cargo_entrevistado?: string
-  archivo_audio?: string
+  archivo_de_audio?: string
   categoria?: number | Categoria
   autor: number | Autor
   etiquetas?: EntrevistaEtiqueta[]
@@ -87,6 +87,9 @@ export interface Entrevista {
   vistas: number
   estado: "publicado" | "borrador" | "archivado"
   fecha_publicacion: string
+  galeria?: { directus_files_id: string }[]
+  Epigrafe?: string
+  epigrafe_galeria?: string
 }
 
 export interface EntrevistaEtiqueta {

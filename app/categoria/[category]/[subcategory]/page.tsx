@@ -5,9 +5,9 @@ import Link from "next/link"
 import Image from "next/image"
 import { Clock, ChevronRight } from "lucide-react"
 import { notFound } from "next/navigation"
-import { getCategorias, getArticulos, getFundaciones } from "@/lib/directus/queries"
+import { getCategorias, getArticulos, getFundaciones, getInterviews } from "@/lib/directus/queries"
 import { getAssetUrl } from "@/lib/directus/client"
-import type { Articulo, Categoria, Fundacion } from "@/lib/directus/types"
+import type { Articulo, Categoria, Fundacion, Entrevista } from "@/lib/directus/types"
 import { InstitutionContactForm } from "@/components/institution-contact-form"
 import { FundacionesDirectory } from "@/components/fundaciones-directory"
 import { categoryDescriptions, getCategoryDisplayName } from "@/lib/category-descriptions"
@@ -29,7 +29,7 @@ export default async function SubcategoryPage({
 
   let categoria: Categoria | null = null
   let subcategoria: Categoria | null = null
-  let articulos: Articulo[] = []
+  let items: (Articulo | Entrevista)[] = []
   let fundaciones: Fundacion[] = []
 
   try {
@@ -41,21 +41,48 @@ export default async function SubcategoryPage({
       notFound()
     }
 
-    // Find the subcategory
-    subcategoria = categorias.find((cat) => cat.slug === subcategorySlug) || null
-    if (!subcategoria) {
-      notFound()
+    // Special handling for "entrevistas" virtual subcategory
+    if (subcategorySlug === 'entrevistas') {
+      subcategoria = {
+        id: 999999, // Virtual ID
+        nombre: "Entrevistas",
+        slug: "entrevistas",
+        estado: "publicado"
+      } as Categoria
+
+      const entrevistas = await getInterviews({ limit: 100 })
+      items = entrevistas
+    } else {
+      // Find the subcategory in DB
+      subcategoria = categorias.find((cat) => cat.slug === subcategorySlug) || null
+
+      if (!subcategoria) {
+        // Special handling for virtual pages like fundaciones directory if handled via subcategory slug
+        if (subcategorySlug !== 'fundaciones') {
+          notFound()
+        } else {
+          // Mock subcategory for fundaciones directory logic below
+          subcategoria = {
+            id: 888888,
+            nombre: "Fundaciones",
+            slug: "fundaciones",
+            estado: "publicado"
+          } as Categoria
+        }
+      }
+
+      if (subcategoria!.slug !== 'fundaciones') {
+        // Get all articles and filter by subcategory
+        const allArticulos = await getArticulos({ limit: 100 })
+        items = allArticulos.filter((art) => {
+          const subId = typeof art.subcategoria === "object" ? art.subcategoria?.id : art.subcategoria
+          const catId = typeof art.categoria === "object" ? art.categoria?.id : art.categoria
+
+          // Check if article belongs to this subcategory either via subcategoria field OR categoria field
+          return subId === subcategoria!.id || catId === subcategoria!.id
+        })
+      }
     }
-
-    // Get all articles and filter by subcategory
-    const allArticulos = await getArticulos({ limit: 100 })
-    articulos = allArticulos.filter((art) => {
-      const subId = typeof art.subcategoria === "object" ? art.subcategoria?.id : art.subcategoria
-      const catId = typeof art.categoria === "object" ? art.categoria?.id : art.categoria
-
-      // Check if article belongs to this subcategory either via subcategoria field OR categoria field
-      return subId === subcategoria!.id || catId === subcategoria!.id
-    })
 
     // If this is the fundaciones subcategory, fetch fundaciones
     if (subcategorySlug === 'fundaciones') {
@@ -119,7 +146,7 @@ export default async function SubcategoryPage({
 
         {/* Content Grid */}
         <section className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-24 py-12">
-          {articulos.length === 0 ? (
+          {items.length === 0 ? (
             <div className="text-center py-16">
               <p className="text-muted-foreground mb-4">No hay contenido disponible en esta subcategoría todavía.</p>
               <Link href={`/categoria/${categorySlug}`}>
@@ -130,36 +157,38 @@ export default async function SubcategoryPage({
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {articulos.map((articulo) => {
-                const cat = typeof articulo.categoria === "object" ? articulo.categoria : null
-                const autor = typeof articulo.autor === "object" ? articulo.autor : null
+              {items.map((item) => {
+                const isInterview = 'nombre_entrevistado' in item;
+                const cat = typeof (item as Articulo).categoria === "object" ? (item as Articulo).categoria : null
+                const autor = typeof item.autor === "object" ? item.autor : null
+                const linkHref = isInterview ? `/entrevistas/${item.slug}` : `/articulos/${item.slug}`;
 
                 return (
-                  <Link key={articulo.id} href={`/articulos/${articulo.slug}`} className="group">
+                  <Link key={item.id} href={linkHref} className="group">
                     <article className="space-y-4">
                       <div className="relative aspect-[4/3] overflow-hidden bg-muted">
                         <Image
-                          src={getAssetUrl(articulo.imagen_principal) || "/placeholder.svg"}
-                          alt={articulo.titulo}
+                          src={getAssetUrl(isInterview ? (item as any).imagen_destacada : (item as any).imagen_principal) || "/placeholder.svg"}
+                          alt={item.titulo}
                           fill
                           className="object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                       </div>
                       <div className="space-y-2">
                         <Badge variant="secondary" className="text-xs">
-                          {subcategoria?.nombre}
+                          {isInterview ? 'Entrevistas' : subcategoria?.nombre}
                         </Badge>
                         <h3 className="font-serif text-xl font-bold group-hover:text-accent transition-colors text-balance">
-                          {articulo.titulo}
+                          {item.titulo}
                         </h3>
                         <p className="text-sm text-muted-foreground leading-relaxed text-pretty line-clamp-2">
-                          {articulo.extracto}
+                          {item.extracto}
                         </p>
                         <div className="flex items-center gap-4 text-xs text-muted-foreground">
                           {autor && <span>{autor.nombre}</span>}
                           <span className="flex items-center gap-1">
                             <Clock className="h-3 w-3" />
-                            {new Date(articulo.fecha_publicacion).toLocaleDateString("es-ES", {
+                            {new Date(item.fecha_publicacion).toLocaleDateString("es-ES", {
                               day: "numeric",
                               month: "long",
                               year: "numeric",

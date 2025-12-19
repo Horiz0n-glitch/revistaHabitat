@@ -1,6 +1,6 @@
 import { readItems, readItem } from "@directus/sdk"
 import { getDirectusClient } from "./client"
-import type { Articulo, Categoria, Autor, Etiqueta, ArticuloFile, Fundacion } from "./types"
+import type { Articulo, Categoria, Autor, Etiqueta, ArticuloFile, Fundacion, Entrevista } from "./types"
 
 // ===== ARTICULOS (ARTICLES) =====
 
@@ -391,12 +391,75 @@ export async function getArticlesByTag(tagSlug: string, limit = 20) {
   return getArticulos({ limit })
 }
 
-export async function getInterviews(options?: any) {
-  return []
+// ===== ENTREVISTAS =====
+
+export async function getInterviews(options?: {
+  limit?: number
+  offset?: number
+  filter?: any
+}) {
+  try {
+    const client = getDirectusClient()
+
+    const result = await client.request(
+      readItems("entrevistas", {
+        limit: options?.limit || 20,
+        offset: options?.offset || 0,
+        filter: {
+          estado: { _eq: "publicado" },
+          ...(options?.filter || {}),
+        },
+        sort: ["-fecha_publicacion"],
+        fields: [
+          "*",
+          "categoria.id",
+          "categoria.nombre",
+          "categoria.slug",
+          "autor.id",
+          "autor.nombre",
+          "autor.avatar",
+          "galeria.directus_files_id"
+        ],
+      })
+    )
+
+    return result as Entrevista[]
+  } catch (error) {
+    console.error("[v0] Error fetching interviews:", error)
+    return []
+  }
 }
 
 export async function getInterviewBySlug(slug: string) {
-  return null
+  try {
+    const client = getDirectusClient()
+    const decodedSlug = decodeURIComponent(slug)
+
+    const result = await client.request(
+      readItems("entrevistas", {
+        filter: {
+          slug: { _eq: decodedSlug },
+          estado: { _eq: "publicado" },
+        },
+        limit: 1,
+        fields: [
+          "*",
+          "categoria.id",
+          "categoria.nombre",
+          "categoria.slug",
+          "autor.id",
+          "autor.nombre",
+          "autor.avatar",
+          "autor.biografia",
+          "galeria.directus_files_id"
+        ],
+      })
+    )
+    return (result && result.length > 0) ? result[0] as Entrevista : null
+  } catch (error) {
+    console.error("[v0] Error fetching interview by slug:", error)
+    return null
+  }
 }
 
 export async function getMagazines(options?: any) {
@@ -434,6 +497,25 @@ export async function getRandomAd(size: string) {
 export async function searchContent(query: string) {
   const result = await buscarContenido(query)
   return { articles: result.articulos, interviews: [], magazines: [] }
+}
+
+export async function getMixedContent(limit = 20): Promise<(Articulo | Entrevista)[]> {
+  try {
+    const [articulos, entrevistas] = await Promise.all([
+      getArticulos({ limit }),
+      getInterviews({ limit })
+    ]);
+
+    // Combine and sort by date descending
+    const mixed = [...articulos, ...entrevistas].sort((a, b) => {
+      return new Date(b.fecha_publicacion).getTime() - new Date(a.fecha_publicacion).getTime();
+    });
+
+    return mixed.slice(0, limit);
+  } catch (error) {
+    console.error("[v0] Error in getMixedContent:", error);
+    return [];
+  }
 }
 
 export async function incrementViews(collection: "articles" | "interviews", id: number) {
