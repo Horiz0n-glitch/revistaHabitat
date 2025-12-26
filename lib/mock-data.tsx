@@ -29,10 +29,9 @@ export const navigationCategories = [
       { name: "Concursos / Becas", slug: "concursos-becas" },
       { name: "Conferencias", slug: "conferencias" },
       { name: "Encuentros", slug: "encuentros" },
-      { name: "Eventos / Concursos", slug: "eventos-concursos" },
-      { name: "Exposiciones", slug: "exposiciones" },
-      { name: "Ferias y Congresos", slug: "ferias-y-congresos" },
       { name: "Seminarios", slug: "seminarios" },
+      { name: "Diplomatura", slug: "diplomatura" },
+      { name: "Universidades", slug: "universidades" },
     ],
   },
   {
@@ -121,6 +120,11 @@ export const navigationCategories = [
       { name: "Hoteles", slug: "hoteles" },
       { name: "Novedades", slug: "novedades" },
     ],
+  },
+  {
+    name: "Publicaciones",
+    slug: "publicaciones",
+    subcategories: [],
   },
 ]
 
