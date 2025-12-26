@@ -1,0 +1,630 @@
+{
+  "dbStructure": [
+    {
+      "name": "Arquitectura",
+      "slug": "arquitectura",
+      "subcategories": []
+    },
+    {
+      "name": "Artículos",
+      "slug": "articulos",
+      "subcategories": [
+        {
+          "name": "Artículos Técnicos",
+          "slug": "articulos-tecnicos"
+        },
+        {
+          "name": "Columnistas",
+          "slug": "columnistas"
+        },
+        {
+          "name": "Entrevistas",
+          "slug": "entrevistas"
+        },
+        {
+          "name": "Reportajes",
+          "slug": "reportajes"
+        }
+      ]
+    },
+    {
+      "name": "Cultura y Patrimonio",
+      "slug": "cultura-y-patrimonio",
+      "subcategories": [
+        {
+          "name": "Centros Históricos",
+          "slug": "centros-historicos"
+        },
+        {
+          "name": "Eventos / Cursos",
+          "slug": "eventos-cursos"
+        }
+      ]
+    },
+    {
+      "name": "Diseño",
+      "slug": "diseno",
+      "subcategories": []
+    },
+    {
+      "name": "Sustentabilidad",
+      "slug": "sustentabilidad",
+      "subcategories": []
+    },
+    {
+      "name": "Restauración",
+      "slug": "restauracion",
+      "subcategories": [
+        {
+          "name": "Conservación",
+          "slug": "conservacion"
+        },
+        {
+          "name": "Monumentos",
+          "slug": "monumentos"
+        },
+        {
+          "name": "Patologías",
+          "slug": "patologias"
+        },
+        {
+          "name": "Puesta en Valor",
+          "slug": "puesta-en-valor"
+        }
+      ]
+    },
+    {
+      "name": "Urbanismo",
+      "slug": "urbanismo",
+      "subcategories": []
+    },
+    {
+      "name": "RSE",
+      "slug": "rse",
+      "subcategories": [
+        {
+          "name": "Capacitaciones RS",
+          "slug": "capacitaciones-rs"
+        },
+        {
+          "name": "Cursos y Eventos RS",
+          "slug": "cursos-y-eventos-rs"
+        },
+        {
+          "name": "Educación RS",
+          "slug": "educacion-rs"
+        },
+        {
+          "name": "Empresas RS",
+          "slug": "empresas-rs"
+        },
+        {
+          "name": "Fundaciones y ONG",
+          "slug": "fundaciones-y-ong"
+        },
+        {
+          "name": "Jornadas RS",
+          "slug": "jornadas-rs"
+        },
+        {
+          "name": "Noticias RS",
+          "slug": "noticias-rs"
+        }
+      ]
+    },
+    {
+      "name": "Reciclaje",
+      "slug": "reciclaje",
+      "subcategories": [
+        {
+          "name": "Novedades",
+          "slug": "novedades-reciclaje"
+        },
+        {
+          "name": "Reformas / Remodelación",
+          "slug": "reformas-remodelacion"
+        }
+      ]
+    },
+    {
+      "name": "Sustentable",
+      "slug": "sustentable",
+      "subcategories": [
+        {
+          "name": "Agua y Saneamiento",
+          "slug": "agua-y-saneamiento"
+        },
+        {
+          "name": "Ambiente",
+          "slug": "ambiente"
+        },
+        {
+          "name": "Bio Arquitectura",
+          "slug": "bio-arquitectura"
+        },
+        {
+          "name": " Concursos/Eventos",
+          "slug": " concursos-eventos-sustentable"
+        },
+        {
+          "name": "Eficiencia Energética",
+          "slug": "eficiencia-energetica"
+        },
+        {
+          "name": "Empresas Sustentables",
+          "slug": "empresas-sustentables"
+        },
+        {
+          "name": "Energías Renovables",
+          "slug": "energias-renovables"
+        }
+      ]
+    },
+    {
+      "name": "Turismo Cultural",
+      "slug": "turismo-cultural",
+      "subcategories": [
+        {
+          "name": "Curiosidades",
+          "slug": "curiosidades"
+        },
+        {
+          "name": "Eventos",
+          "slug": "eventos-turismocultural"
+        },
+        {
+          "name": "Exposiciones y Ferias",
+          "slug": "exposiciones-y-ferias"
+        },
+        {
+          "name": "Informes",
+          "slug": "informes"
+        },
+        {
+          "name": "Recorridos",
+          "slug": "recorridos"
+        },
+        {
+          "name": "Religioso",
+          "slug": "religioso"
+        }
+      ]
+    },
+    {
+      "name": "Propiedades",
+      "slug": "propiedades",
+      "subcategories": [
+        {
+          "name": "Barrios Cerrados",
+          "slug": "barrios-cerrados"
+        },
+        {
+          "name": "Casas",
+          "slug": "casas"
+        },
+        {
+          "name": "Construcción",
+          "slug": "construccion"
+        },
+        {
+          "name": "Copropietarios",
+          "slug": "copropietarios"
+        },
+        {
+          "name": "Desarrollo Inmobiliario",
+          "slug": "desarrollo-inmobiliario"
+        },
+        {
+          "name": "Edificios",
+          "slug": "edificios"
+        },
+        {
+          "name": "Eventos Propiedades",
+          "slug": "eventos-propiedades"
+        },
+        {
+          "name": "Hoteles",
+          "slug": "hoteles"
+        }
+      ]
+    },
+    {
+      "name": "Cultura",
+      "slug": "Cultura",
+      "subcategories": []
+    },
+    {
+      "name": "Empresas",
+      "slug": "empresas",
+      "subcategories": []
+    },
+    {
+      "name": "Generales",
+      "slug": "generales",
+      "subcategories": []
+    },
+    {
+      "name": "Instituciones",
+      "slug": "instituciones",
+      "subcategories": [
+        {
+          "name": "Facultades, instituc. y escuelas",
+          "slug": "facultades-instituc-y-escuelas"
+        },
+        {
+          "name": "Instituc. de Patrimonio",
+          "slug": "instituc-de-patrimonio"
+        },
+        {
+          "name": "Museos",
+          "slug": "museos"
+        },
+        {
+          "name": "Org. varios",
+          "slug": "org. varios"
+        }
+      ]
+    },
+    {
+      "name": "Jornadas",
+      "slug": "jornadas",
+      "subcategories": []
+    },
+    {
+      "name": "Mantenimiento",
+      "slug": "mantenimiento",
+      "subcategories": []
+    },
+    {
+      "name": "Noticias",
+      "slug": "noticias",
+      "subcategories": []
+    },
+    {
+      "name": "Noticias / Novedades",
+      "slug": "noticias / novedades",
+      "subcategories": []
+    },
+    {
+      "name": "Novedades",
+      "slug": "novedades",
+      "subcategories": []
+    },
+    {
+      "name": "Patrimonio cultural",
+      "slug": "patrimonio cultural",
+      "subcategories": []
+    },
+    {
+      "name": "Publicaciones",
+      "slug": "publicaciones",
+      "subcategories": []
+    },
+    {
+      "name": "Responsabilidad social",
+      "slug": "responsabilidad social",
+      "subcategories": []
+    },
+    {
+      "name": "Slider",
+      "slug": "slider",
+      "subcategories": []
+    }
+  ],
+  "siteStructure": [
+    {
+      "name": "Artículos",
+      "slug": "articulos",
+      "subcategories": [
+        {
+          "name": "Artículos",
+          "slug": "articulos"
+        },
+        {
+          "name": "Entrevistas",
+          "slug": "entrevistas"
+        },
+        {
+          "name": "Reportajes",
+          "slug": "reportajes"
+        },
+        {
+          "name": "Artículos Técnicos",
+          "slug": "articulos-tecnicos"
+        },
+        {
+          "name": "Columnistas",
+          "slug": "columnistas"
+        }
+      ]
+    },
+    {
+      "name": "Cultura y Patrimonio",
+      "slug": "cultura-y-patrimonio",
+      "subcategories": [
+        {
+          "name": "Cultura y Patrimonio",
+          "slug": "cultura-y-patrimonio"
+        },
+        {
+          "name": "Centros Históricos",
+          "slug": "centros-historicos"
+        },
+        {
+          "name": "Eventos / Cursos",
+          "slug": "eventos-cursos"
+        }
+      ]
+    },
+    {
+      "name": "Eventos / Cursos",
+      "slug": "eventos-cursos",
+      "subcategories": [
+        {
+          "name": "Cursos",
+          "slug": "cursos"
+        },
+        {
+          "name": "Eventos",
+          "slug": "eventos"
+        },
+        {
+          "name": "Concursos / Becas",
+          "slug": "concursos-becas"
+        },
+        {
+          "name": "Conferencias",
+          "slug": "conferencias"
+        },
+        {
+          "name": "Encuentros",
+          "slug": "encuentros"
+        },
+        {
+          "name": "Eventos / Concursos",
+          "slug": "eventos-concursos"
+        },
+        {
+          "name": "Exposiciones",
+          "slug": "exposiciones"
+        },
+        {
+          "name": "Ferias y Congresos",
+          "slug": "ferias-y-congresos"
+        },
+        {
+          "name": "Seminarios",
+          "slug": "seminarios"
+        }
+      ]
+    },
+    {
+      "name": "Restauración",
+      "slug": "restauracion",
+      "subcategories": [
+        {
+          "name": "Restauración",
+          "slug": "restauracion"
+        },
+        {
+          "name": "Puesta en Valor",
+          "slug": "puesta-en-valor"
+        },
+        {
+          "name": "Conservación",
+          "slug": "conservacion"
+        },
+        {
+          "name": "Monumentos",
+          "slug": "monumentos"
+        }
+      ]
+    },
+    {
+      "name": "Instituciones",
+      "slug": "instituciones",
+      "subcategories": [
+        {
+          "name": "Instituc. de Patrimonio",
+          "slug": "instituc-de-patrimonio"
+        },
+        {
+          "name": "Facultades, instituc. y escuelas",
+          "slug": "facultades-instituc-y-escuelas"
+        },
+        {
+          "name": "Museos",
+          "slug": "museos"
+        },
+        {
+          "name": "Org. varios",
+          "slug": "org-varios"
+        },
+        {
+          "name": "Fundaciones",
+          "slug": "fundaciones"
+        }
+      ]
+    },
+    {
+      "name": "RS",
+      "slug": "rse",
+      "subcategories": [
+        {
+          "name": "Fundaciones y ONG",
+          "slug": "fundaciones-y-ong"
+        },
+        {
+          "name": "Capacitaciones RS",
+          "slug": "capacitaciones-rse"
+        },
+        {
+          "name": "Cursos y Eventos RS",
+          "slug": "cursos-y-eventos-rse"
+        },
+        {
+          "name": "Jornadas RS",
+          "slug": "jornadas-rse"
+        },
+        {
+          "name": "Educación RS",
+          "slug": "educacion-rse"
+        },
+        {
+          "name": "Empresas RS",
+          "slug": "empresas-rse"
+        },
+        {
+          "name": "Noticias RS",
+          "slug": "noticias-rse"
+        }
+      ]
+    },
+    {
+      "name": "Reciclaje",
+      "slug": "reciclaje",
+      "subcategories": [
+        {
+          "name": "Reciclaje",
+          "slug": "reciclaje"
+        },
+        {
+          "name": "Reformas / Remodelación",
+          "slug": "reformas-remodelacion"
+        },
+        {
+          "name": "Mantenimiento",
+          "slug": "mantenimiento"
+        }
+      ]
+    },
+    {
+      "name": "Sustentable",
+      "slug": "sustentable",
+      "subcategories": [
+        {
+          "name": "Ambiente",
+          "slug": "ambiente"
+        },
+        {
+          "name": "Agua y Saneamiento",
+          "slug": "agua-y-saneamiento"
+        },
+        {
+          "name": "Bio Arquitectura",
+          "slug": "bio-arquitectura"
+        },
+        {
+          "name": "Eficiencia Energética",
+          "slug": "eficiencia-energetica"
+        },
+        {
+          "name": "Empresas Sustentables",
+          "slug": "empresas-sustentables"
+        },
+        {
+          "name": "Energías Renovables",
+          "slug": "energias-renovables"
+        }
+      ]
+    },
+    {
+      "name": "Turismo Cultural",
+      "slug": "turismo-cultural",
+      "subcategories": [
+        {
+          "name": "Turismo Cultural",
+          "slug": "turismo-cultural"
+        },
+        {
+          "name": "Recorridos",
+          "slug": "recorridos"
+        },
+        {
+          "name": "Religioso",
+          "slug": "religioso"
+        },
+        {
+          "name": "Curiosidades",
+          "slug": "curiosidades"
+        },
+        {
+          "name": "Informes",
+          "slug": "informes"
+        },
+        {
+          "name": "Eventos",
+          "slug": "eventos"
+        },
+        {
+          "name": "Novedades",
+          "slug": "novedades"
+        }
+      ]
+    },
+    {
+      "name": "Propiedades",
+      "slug": "propiedades",
+      "subcategories": [
+        {
+          "name": "Barrios Cerrados",
+          "slug": "barrios-cerrados"
+        },
+        {
+          "name": "Casas",
+          "slug": "casas"
+        },
+        {
+          "name": "Construcción",
+          "slug": "construccion"
+        },
+        {
+          "name": "Copropietarios",
+          "slug": "copropietarios"
+        },
+        {
+          "name": "Desarrollo Inmobiliario",
+          "slug": "desarrollo-inmobiliario"
+        },
+        {
+          "name": "Edificios",
+          "slug": "edificios"
+        },
+        {
+          "name": "Eventos Propiedades",
+          "slug": "eventos-propiedades"
+        },
+        {
+          "name": "Hoteles",
+          "slug": "hoteles"
+        },
+        {
+          "name": "Novedades",
+          "slug": "novedades"
+        }
+      ]
+    }
+  ],
+  "discrepancies": [
+    "[MISSING CATEGORY] DB has 'Arquitectura' (slug: arquitectura) which is not in the site navigation.",
+    "[MISSING CATEGORY] DB has 'Diseño' (slug: diseno) which is not in the site navigation.",
+    "[MISSING CATEGORY] DB has 'Sustentabilidad' (slug: sustentabilidad) which is not in the site navigation.",
+    "[MISSING SUBCATEGORY] Category 'Restauración' has subcategory 'Patologías' (slug: patologias) in DB but not in site navigation.",
+    "[MISSING CATEGORY] DB has 'Urbanismo' (slug: urbanismo) which is not in the site navigation.",
+    "[MISSING SUBCATEGORY] Category 'Reciclaje' has subcategory 'Novedades' (slug: novedades-reciclaje) in DB but not in site navigation.",
+    "[MISSING SUBCATEGORY] Category 'Sustentable' has subcategory ' Concursos/Eventos' (slug:  concursos-eventos-sustentable) in DB but not in site navigation.",
+    "[MISSING SUBCATEGORY] Category 'Turismo Cultural' has subcategory 'Exposiciones y Ferias' (slug: exposiciones-y-ferias) in DB but not in site navigation.",
+    "[MISSING CATEGORY] DB has 'Cultura' (slug: Cultura) which is not in the site navigation.",
+    "[MISSING CATEGORY] DB has 'Empresas' (slug: empresas) which is not in the site navigation.",
+    "[MISSING CATEGORY] DB has 'Generales' (slug: generales) which is not in the site navigation.",
+    "[MISSING CATEGORY] DB has 'Jornadas' (slug: jornadas) which is not in the site navigation.",
+    "[MISSING CATEGORY] DB has 'Mantenimiento' (slug: mantenimiento) which is not in the site navigation.",
+    "[MISSING CATEGORY] DB has 'Noticias' (slug: noticias) which is not in the site navigation.",
+    "[MISSING CATEGORY] DB has 'Noticias / Novedades' (slug: noticias / novedades) which is not in the site navigation.",
+    "[MISSING CATEGORY] DB has 'Novedades' (slug: novedades) which is not in the site navigation.",
+    "[MISSING CATEGORY] DB has 'Patrimonio cultural' (slug: patrimonio cultural) which is not in the site navigation.",
+    "[MISSING CATEGORY] DB has 'Publicaciones' (slug: publicaciones) which is not in the site navigation.",
+    "[MISSING CATEGORY] DB has 'Responsabilidad social' (slug: responsabilidad social) which is not in the site navigation.",
+    "[MISSING CATEGORY] DB has 'Slider' (slug: slider) which is not in the site navigation."
+  ]
+}

@@ -6,6 +6,11 @@ import { Card, CardContent } from "@/components/ui/card"
 export default function StaffPage() {
   const editorialTeam = [
     {
+      title: "Director General",
+      name: "Eduardo Leguizamón",
+      email: "eleguizamon@revistahabitat.com",
+    },
+    {
       title: "Directora Editorial",
       name: "María Emilia Echezarreta",
       email: "cm.emiliaechezarreta@gmail.com",
@@ -72,7 +77,12 @@ export default function StaffPage() {
 
   const correspondents = [
     {
-      country: "Argentina / EEUU",
+      country: "Miami - Orlando - Florida - EEUU",
+      name: "Arq. Jorge Puglisi",
+      email: "jorgearielpuglisi@gmail.com",
+    },
+    {
+      country: "Argentina",
       name: "Enrique Madia",
       email: "emadia@aol.com",
     },

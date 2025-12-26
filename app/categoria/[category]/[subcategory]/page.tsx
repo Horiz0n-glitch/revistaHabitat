@@ -57,6 +57,20 @@ export default async function SubcategoryPage({
       // Find the subcategory in DB
       subcategoria = categorias.find((cat) => cat.slug === subcategorySlug) || null
 
+      // If not found by slug, try to find by name matching the URL slug (fuzzy match attempt)
+      if (!subcategoria) {
+        const knownCategory = navigationCategories.find(c => c.slug === categorySlug);
+        const knownSubcategory = knownCategory?.subcategories?.find(s => s.slug === subcategorySlug);
+
+        if (knownSubcategory) {
+          // Try to find in DB by name if we have a known name
+          subcategoria = categorias.find((cat) =>
+            cat.nombre.toLowerCase() === knownSubcategory.name.toLowerCase() ||
+            cat.slug.replace(/-/g, '') === subcategorySlug.replace(/-/g, '')
+          ) || null;
+        }
+      }
+
       if (!subcategoria) {
         // Special handling for virtual pages like fundaciones directory if handled via subcategory slug
         if (subcategorySlug === 'fundaciones') {
@@ -91,11 +105,28 @@ export default async function SubcategoryPage({
         // Get all articles and filter by subcategory
         const allArticulos = await getArticulos({ limit: 100 })
         items = allArticulos.filter((art) => {
-          const subId = typeof art.subcategoria === "object" ? art.subcategoria?.id : art.subcategoria
-          const catId = typeof art.categoria === "object" ? art.categoria?.id : art.categoria
+          const subcatObj = typeof art.subcategoria === "object" ? art.subcategoria : null;
+          const catObj = typeof art.categoria === "object" ? art.categoria : null;
 
-          // Check if article belongs to this subcategory either via subcategoria field OR categoria field
-          return subId === subcategoria!.id || catId === subcategoria!.id
+          const subId = subcatObj?.id || art.subcategoria;
+          const catId = catObj?.id || art.categoria;
+
+          // Check by ID
+          const matchesId = subId === subcategoria!.id || catId === subcategoria!.id;
+
+          // Check by Slug (more robust if IDs fail or are virtual)
+          const matchesSlug =
+            (subcatObj?.slug === subcategorySlug) ||
+            (catObj?.slug === subcategorySlug) ||
+            (subcatObj?.slug === subcategoria!.slug) ||
+            (catObj?.slug === subcategoria!.slug);
+
+          // Check by Name (backup for minor discrepancies)
+          const matchesName =
+            (subcatObj?.nombre?.toLowerCase() === subcategoria!.nombre?.toLowerCase()) ||
+            (catObj?.nombre?.toLowerCase() === subcategoria!.nombre?.toLowerCase());
+
+          return matchesId || matchesSlug || matchesName;
         })
       }
     }

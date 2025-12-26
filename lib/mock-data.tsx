@@ -43,6 +43,7 @@ export const navigationCategories = [
       { name: "Puesta en Valor", slug: "puesta-en-valor" },
       { name: "Conservación", slug: "conservacion" },
       { name: "Monumentos", slug: "monumentos" },
+      { name: "Patologías", slug: "patologias" },
     ],
   },
   {
@@ -76,6 +77,7 @@ export const navigationCategories = [
       { name: "Reciclaje", slug: "reciclaje" },
       { name: "Reformas / Remodelación", slug: "reformas-remodelacion" },
       { name: "Mantenimiento", slug: "mantenimiento" },
+      { name: "Novedades", slug: "novedades-reciclaje" },
     ],
   },
   {
@@ -88,6 +90,7 @@ export const navigationCategories = [
       { name: "Eficiencia Energética", slug: "eficiencia-energetica" },
       { name: "Empresas Sustentables", slug: "empresas-sustentables" },
       { name: "Energías Renovables", slug: "energias-renovables" },
+      { name: "Concursos/Eventos", slug: "concursos-eventos-sustentable" },
     ],
   },
   {
@@ -101,6 +104,7 @@ export const navigationCategories = [
       { name: "Informes", slug: "informes" },
       { name: "Eventos", slug: "eventos" },
       { name: "Novedades", slug: "novedades" },
+      { name: "Exposiciones y Ferias", slug: "exposiciones-y-ferias" },
     ],
   },
   {
