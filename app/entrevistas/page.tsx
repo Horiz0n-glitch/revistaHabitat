@@ -2,6 +2,7 @@ import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { Badge } from "@/components/ui/badge"
 import Image from "next/image"
+import { ImageWithLoader } from "@/components/ui/image-with-loader"
 import Link from "next/link"
 import { Clock, Construction, ArrowLeft, ArrowRight } from 'lucide-react'
 import { AdBanner } from "@/components/ads/ad-banner"
@@ -43,7 +44,7 @@ export default async function InterviewsPage() {
                 <Link key={interview.id} href={`/entrevistas/${interview.slug}`} className="group">
                   <article className="flex flex-col h-full bg-background rounded-lg border border-border overflow-hidden hover:shadow-lg transition-shadow">
                     <div className="relative aspect-video overflow-hidden bg-muted">
-                      <Image
+                      <ImageWithLoader
                         src={getAssetUrl(interview.imagen_principal) || "/placeholder.svg"}
                         alt={interview.titulo}
                         fill

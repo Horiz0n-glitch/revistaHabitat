@@ -3,6 +3,7 @@ import { Footer } from "@/components/footer"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
+import { ImageWithLoader } from "@/components/ui/image-with-loader"
 import Link from "next/link"
 import { Clock } from "lucide-react"
 import { AdBanner } from "@/components/ads/ad-banner"
@@ -87,7 +88,7 @@ export default async function ArticlesPage() {
                     <article className="space-y-4">
                       {/* Image */}
                       <Link href={`/articulos/${articulo.slug}`} className="block relative aspect-[4/3] overflow-hidden bg-muted">
-                        <Image
+                        <ImageWithLoader
                           src={getAssetUrl(articulo.imagen_principal) || "/placeholder.svg"}
                           alt={articulo.titulo}
                           fill

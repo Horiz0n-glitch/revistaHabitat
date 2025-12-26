@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
 import Image from "next/image"
+import { ImageWithLoader } from "@/components/ui/image-with-loader"
 import { ArrowRight, Clock, BookOpen } from "lucide-react"
 import { AdBanner } from "@/components/ads/ad-banner"
 import { getRandomAd } from "@/lib/mock-ads"
@@ -149,7 +150,7 @@ export default async function HomePage() {
                       </div>
                     </div>
                     <div className="relative aspect-4/3 overflow-hidden bg-muted rounded-lg">
-                      <Image
+                      <ImageWithLoader
                         src={getAssetUrl('imagen_destacada' in featuredArticle ? featuredArticle.imagen_destacada : featuredArticle.imagen_principal) || "/placeholder.svg"}
                         alt={featuredArticle.titulo}
                         fill
@@ -187,7 +188,7 @@ export default async function HomePage() {
                       <Link key={item.id} href={linkHref} className="group">
                         <article className="space-y-4">
                           <div className="relative aspect-4/3 overflow-hidden bg-muted rounded-lg">
-                            <Image
+                            <ImageWithLoader
                               src={getAssetUrl('imagen_destacada' in item ? item.imagen_destacada : item.imagen_principal) || "/placeholder.svg"}
                               alt={item.titulo}
                               fill
@@ -239,7 +240,7 @@ export default async function HomePage() {
                   <Link href={'nombre_entrevistado' in featuredInterview ? `/entrevistas/${featuredInterview.slug}` : `/articulos/${featuredInterview.slug}`} className="block group cursor-pointer">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                       <div className="relative aspect-4/3 overflow-hidden order-2 lg:order-1 bg-background rounded-lg">
-                        <Image
+                        <ImageWithLoader
                           src={getAssetUrl('imagen_destacada' in featuredInterview ? featuredInterview.imagen_destacada : featuredInterview.imagen_principal) || "/placeholder.svg"}
                           alt={featuredInterview.titulo}
                           fill
@@ -307,7 +308,7 @@ export default async function HomePage() {
                           <Link href={'nombre_entrevistado' in item ? `/entrevistas/${item.slug}` : `/articulos/${item.slug}`} className="group">
                             <article className="space-y-3 bg-background p-4 rounded-lg border border-border hover:shadow-lg transition-shadow h-full">
                               <div className="relative aspect-video overflow-hidden rounded-md bg-muted">
-                                <Image
+                                <ImageWithLoader
                                   src={getAssetUrl('imagen_destacada' in item ? item.imagen_destacada : item.imagen_principal) || "/placeholder.svg"}
                                   alt={item.titulo}
                                   fill
@@ -365,7 +366,7 @@ export default async function HomePage() {
                             <article className="bg-background p-6 rounded-lg border border-border hover:shadow-lg transition-shadow">
                               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                                 <div className="relative aspect-4/3 overflow-hidden rounded-md bg-muted">
-                                  <Image
+                                  <ImageWithLoader
                                     src={getAssetUrl('imagen_destacada' in interview ? interview.imagen_destacada : (interview as any).imagen_principal) || "/placeholder.svg"}
                                     alt={interview.titulo}
                                     fill

@@ -11,6 +11,7 @@ import type { Articulo, Categoria, Fundacion, Entrevista } from "@/lib/directus/
 import { InstitutionContactForm } from "@/components/institution-contact-form"
 import { FundacionesDirectory } from "@/components/fundaciones-directory"
 import { categoryDescriptions, getCategoryDisplayName } from "@/lib/category-descriptions"
+import { navigationCategories } from "@/lib/mock-data"
 
 export const revalidate = 60
 
@@ -58,9 +59,7 @@ export default async function SubcategoryPage({
 
       if (!subcategoria) {
         // Special handling for virtual pages like fundaciones directory if handled via subcategory slug
-        if (subcategorySlug !== 'fundaciones') {
-          notFound()
-        } else {
+        if (subcategorySlug === 'fundaciones') {
           // Mock subcategory for fundaciones directory logic below
           subcategoria = {
             id: 888888,
@@ -68,6 +67,23 @@ export default async function SubcategoryPage({
             slug: "fundaciones",
             estado: "publicado"
           } as Categoria
+        } else {
+          // Check if it exists in mock navigation structure (hybrid mode support)
+          // This allows navigation to work even if the subcategory hasn't been created in DB yet
+          const knownCategory = navigationCategories.find(c => c.slug === categorySlug);
+          const knownSubcategory = knownCategory?.subcategories?.find(s => s.slug === subcategorySlug);
+
+          if (knownSubcategory) {
+            subcategoria = {
+              id: 0, // Virtual ID indicating no DB record yet
+              nombre: knownSubcategory.name,
+              slug: knownSubcategory.slug,
+              estado: "publicado",
+              categoria_padre: categoria.id
+            } as Categoria
+          } else {
+            notFound()
+          }
         }
       }
 

@@ -77,6 +77,7 @@ export interface Entrevista {
   extracto: string
   contenido: string
   imagen_destacada: string
+  imagen_principal?: string
   nombre_entrevistado: string
   cargo_entrevistado?: string
   archivo_de_audio?: string

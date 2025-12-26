@@ -3,6 +3,7 @@ import { Footer } from "@/components/footer"
 import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
 import Image from "next/image"
+import { ImageWithLoader } from "@/components/ui/image-with-loader"
 import { Clock } from "lucide-react"
 import { notFound } from "next/navigation"
 import { AdBanner } from "@/components/ads/ad-banner"
@@ -11,6 +12,7 @@ import { getArticulos, getCategorias } from "@/lib/directus/queries"
 import { getAssetUrl } from "@/lib/directus/client"
 import type { Articulo, Categoria } from "@/lib/directus/types"
 import { categoryDescriptions, getCategoryDisplayName } from "@/lib/category-descriptions"
+import { navigationCategories } from "@/lib/mock-data"
 
 export const revalidate = 60
 
@@ -36,7 +38,20 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
     categoria = categorias.find((cat) => cat.slug === categorySlug) || null
 
     if (!categoria) {
-      notFound()
+      // Check if it exists in mock navigation structure (hybrid mode support)
+      // This allows navigation to work even if the category hasn't been created in DB yet
+      const knownCategory = navigationCategories.find(c => c.slug === categorySlug);
+
+      if (knownCategory) {
+        categoria = {
+          id: 0, // Virtual ID
+          nombre: knownCategory.name,
+          slug: knownCategory.slug,
+          estado: "publicado"
+        } as Categoria
+      } else {
+        notFound()
+      }
     }
 
     const allArticulos = await getArticulos({ limit: 100 })
@@ -101,7 +116,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
                     <Link key={articulo.id} href={`/articulos/${articulo.slug}`} className="group">
                       <article className="space-y-4">
                         <div className="relative aspect-[4/3] overflow-hidden bg-muted">
-                          <Image
+                          <ImageWithLoader
                             src={getAssetUrl(articulo.imagen_principal) || "/placeholder.svg"}
                             alt={articulo.titulo}
                             fill
