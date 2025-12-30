@@ -130,7 +130,7 @@ export default function PublicidadPage() {
                 {
                   title: "Publicidad Web",
                   description: "Especificaciones y tarifas para banners y anuncios en nuestro sitio web.",
-                  url: "https://pub-58d5e70d4f5a4ae1a1c5f11307ac80cb.r2.dev/media%20kit/revista%20habitat%20website.pdf",
+                  url: "https://drive.google.com/file/d/16gWFDFFrUl5rSQdMr75gXLquT_V2bq8E/preview",
                 },
                 {
                   title: "Revista Digital Bimestral",
