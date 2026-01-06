@@ -8,7 +8,7 @@ import { notFound } from "next/navigation"
 import { getCategorias, getArticulos, getFundaciones, getInterviews } from "@/lib/directus/queries"
 import { getAssetUrl } from "@/lib/directus/client"
 import type { Articulo, Categoria, Fundacion, Entrevista } from "@/lib/directus/types"
-import { InstitutionContactForm } from "@/components/institution-contact-form"
+
 import { FundacionesDirectory } from "@/components/fundaciones-directory"
 import { categoryDescriptions, getCategoryDisplayName } from "@/lib/category-descriptions"
 import { navigationCategories } from "@/lib/mock-data"
@@ -175,14 +175,7 @@ export default async function SubcategoryPage({
           </div>
         </section>
 
-        {/* Institution Contact Form - Only for RSE/Foundations/NGO subcategories */}
-        {(subcategoria?.slug?.toLowerCase().includes('rse') ||
-          subcategoria?.slug?.toLowerCase().includes('fundacion') ||
-          subcategoria?.slug?.toLowerCase().includes('ong')) && (
-            <section className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-24 py-12 md:py-16">
-              <InstitutionContactForm />
-            </section>
-          )}
+
 
         {/* Fundaciones Directory - Only for fundaciones subcategory */}
         {subcategorySlug === 'fundaciones' && (

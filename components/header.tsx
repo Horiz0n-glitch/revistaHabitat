@@ -184,6 +184,7 @@ export function Header() {
               >
                 Revistas
               </Link>
+              {/* Top Nav explicitly excludes Guías - moved to bottom nav */}
             </nav>
 
             {/* Actions */}
@@ -311,7 +312,7 @@ export function Header() {
                 {bottomNavCategories.map((category) => (
                   <Link
                     key={category.slug}
-                    href={`/categoria/${category.slug}`}
+                    href={category.slug === 'guias' ? '/guias' : `/categoria/${category.slug}`}
                     className="block px-3 py-2 text-sm font-semibold text-gray-900 hover:bg-gray-100 hover:text-gray-900 transition-colors"
                     onClick={() => setMobileMenuOpen(false)}
                   >
@@ -334,7 +335,7 @@ export function Header() {
                   onMouseLeave={handleCategoryLeave}
                 >
                   <Link
-                    href={`/categoria/${category.slug}`}
+                    href={category.slug === 'guias' ? '/guias' : `/categoria/${category.slug}`}
                     className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md transition-colors whitespace-nowrap"
                   >
                     {category.name === "RS" ? "Resp. Social" : category.name}
@@ -344,11 +345,11 @@ export function Header() {
                   </Link>
 
                   {category.subcategories && category.subcategories.length > 0 && hoveredCategory === category.slug && (
-                    <div className="absolute left-0 top-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg py-2 min-w-[220px] z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                    <div className={`absolute top-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg py-2 min-w-[220px] z-50 animate-in fade-in slide-in-from-top-2 duration-200 ${category.slug === 'guias' ? 'right-0' : 'left-0'}`}>
                       {category.subcategories.map((subcategory) => (
                         <Link
                           key={subcategory.slug}
-                          href={`/categoria/${category.slug}/${subcategory.slug}`}
+                          href={category.slug === 'guias' ? `/guias/${subcategory.slug}` : `/categoria/${category.slug}/${subcategory.slug}`}
                           className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors"
                         >
                           {subcategory.name}
