@@ -1,6 +1,6 @@
-import { readItems, readItem } from "@directus/sdk"
+import { readItems, readItem, createItem } from "@directus/sdk"
 import { getDirectusClient } from "./client"
-import type { Articulo, Categoria, Autor, Etiqueta, ArticuloFile, Fundacion, Entrevista } from "./types"
+import type { Articulo, Categoria, Autor, Etiqueta, ArticuloFile, Fundacion, Entrevista, Comentario } from "./types"
 
 // ===== ARTICULOS (ARTICLES) =====
 
@@ -578,5 +578,49 @@ export async function getFundacionBySlug(slug: string): Promise<Fundacion | null
       console.error("[v0] Error in getFundacionBySlug:", error)
     }
     return null
+  }
+}
+
+// ===== COMENTARIOS =====
+
+export async function getCommentsByArticleId(articleId: number) {
+  const client = getDirectusClient()
+
+  try {
+    const comments = await client.request(
+      readItems("comentarios", {
+        filter: {
+          article_id: { _eq: articleId },
+          status: { _eq: "published" },
+        },
+        sort: ["-date_created"],
+      })
+    )
+    return comments as Comentario[]
+  } catch (error) {
+    console.error(`[v0] Error fetching comments for article ${articleId}:`, error)
+    return []
+  }
+}
+
+export async function createComment(data: {
+  article_id: number
+  author_name: string
+  content: string
+  status?: string
+}) {
+  const client = getDirectusClient()
+
+  try {
+    const result = await client.request(
+      createItem("comentarios", {
+        ...data,
+        status: data.status || "draft",
+      })
+    )
+    return result as Comentario
+  } catch (error) {
+    console.error("[v0] Error creating comment:", error)
+    throw error
   }
 }

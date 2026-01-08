@@ -14,6 +14,7 @@ import { getArticuloBySlug, getArticulos, getArticuloGaleria } from "@/lib/direc
 import { getAssetUrl } from "@/lib/directus/client"
 import { processContent } from "@/lib/content-utils"
 import { getCategoryDisplayName } from "@/lib/category-descriptions"
+import { CommentsSection } from "@/components/comments/comments-section"
 
 import { type Metadata } from "next"
 import { getAssetUrlWithTransforms } from '@/lib/directus/client'
@@ -237,6 +238,9 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
                 {/* Gallery Component */}
                 {galeriaUrls.length > 0 && <ArticleGallery images={galeriaUrls} title={articulo.titulo} />}
+
+                {/* Comments Section */}
+                <CommentsSection articleId={articulo.id} />
               </div>
             </article>
 

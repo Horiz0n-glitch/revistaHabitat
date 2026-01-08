@@ -132,7 +132,18 @@ export interface Anuncio {
   prioridad: number
 }
 
+
+export interface Comentario {
+  id: number
+  status: "published" | "draft" | "archived"
+  article_id: number
+  author_name: string
+  content: string
+  date_created: string
+}
+
 // ===== DIRECTUS SCHEMA =====
+
 
 export interface MensajeContacto {
   id: number
