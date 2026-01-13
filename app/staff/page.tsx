@@ -66,6 +66,7 @@ export default function StaffPage() {
     {
       title: "Prensa y Redacción",
       email: "articulos@revistahabitat.com",
+      isFullWidth: true, // Special flag for styling as a section title
     },
     {
       name: "Arq. Jorge Puglisi",
@@ -116,6 +117,16 @@ export default function StaffPage() {
     },
   ]
 
+  // Combine all items into a single array for sequential grid rendering
+  const allStaff = [
+    ...editorialTeam,
+    ...technicalTeam,
+    ...sections,
+    ...press,
+    ...correspondents,
+    ...contactSections
+  ]
+
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <Header />
@@ -159,104 +170,19 @@ export default function StaffPage() {
           <div className="lg:col-span-5">
             <h3 className="font-bold text-xl mb-8 border-b border-black/10 pb-2">Nuestro equipo:</h3>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-8">
+              {allStaff.map((member, i) => (
+                <div key={i} className={`break-inside-avoid ${member.isFullWidth ? 'col-span-1 sm:col-span-2 pt-6 border-t border-black/10' : ''}`}>
 
-              {/* Column 1 */}
-              <div className="space-y-10">
-                {/* Editorial Team */}
-                <div className="space-y-6">
-                  {editorialTeam.map((member, i) => (
-                    <div key={i}>
-                      <p className="font-bold text-sm uppercase tracking-wide text-black mb-0.5">{member.title}</p>
-                      <p className="text-base text-black mb-0.5">{member.name}</p>
-                      {member.email && (
-                        <a href={`mailto:${member.email}`} className="text-sm text-neutral-500 hover:text-black hover:underline transition-colors block mt-0.5">
-                          {member.email}
-                        </a>
-                      )}
-                    </div>
-                  ))}
+                  {member.title && <p className="font-bold text-sm uppercase tracking-wide text-black mb-0.5">{member.title}</p>}
+                  {member.name && <p className="text-base text-black mb-0.5">{member.name}</p>}
+                  {member.email && (
+                    <a href={`mailto:${member.email}`} className="text-sm text-neutral-500 hover:text-black hover:underline transition-colors block mt-0.5 break-all">
+                      {member.email}
+                    </a>
+                  )}
                 </div>
-
-                {/* Technical Team */}
-                <div className="space-y-6">
-                  {technicalTeam.map((member, i) => (
-                    <div key={i}>
-                      <p className="font-bold text-sm uppercase tracking-wide text-black mb-0.5">{member.title}</p>
-                      <p className="text-base text-black mb-0.5">{member.name}</p>
-                      {member.email && (
-                        <a href={`mailto:${member.email}`} className="text-sm text-neutral-500 hover:text-black hover:underline transition-colors block mt-0.5">
-                          {member.email}
-                        </a>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Column 2 */}
-              <div className="space-y-10">
-                {/* Sections */}
-                <div className="space-y-6">
-                  {sections.map((member, i) => (
-                    <div key={i}>
-                      <p className="font-bold text-sm uppercase tracking-wide text-black mb-0.5">{member.title}</p>
-                      <p className="text-base text-black mb-0.5">{member.name}</p>
-                      {member.email && (
-                        <a href={`mailto:${member.email}`} className="text-sm text-neutral-500 hover:text-black hover:underline transition-colors block mt-0.5">
-                          {member.email}
-                        </a>
-                      )}
-                    </div>
-                  ))}
-                </div>
-
-                {/* Press */}
-                <div className="space-y-6">
-                  <div className="border-t w-8 border-black mb-4"></div>
-                  {press.map((member, i) => (
-                    <div key={i}>
-                      {member.title && <p className="font-bold text-sm uppercase tracking-wide text-black mb-0.5">{member.title}</p>}
-                      {member.name && <p className="text-base text-black mb-0.5">{member.name}</p>}
-                      {member.email && (
-                        <a href={`mailto:${member.email}`} className="text-sm text-neutral-500 hover:text-black hover:underline transition-colors block mt-0.5">
-                          {member.email}
-                        </a>
-                      )}
-                    </div>
-                  ))}
-                </div>
-
-                {/* Correspondents */}
-                <div className="space-y-6">
-                  {correspondents.map((member, i) => (
-                    <div key={i}>
-                      <p className="font-bold text-sm uppercase tracking-wide text-black mb-0.5">{member.title}</p>
-                      <p className="text-base text-black mb-0.5">{member.name}</p>
-                      {member.email && (
-                        <a href={`mailto:${member.email}`} className="text-sm text-neutral-500 hover:text-black hover:underline transition-colors block mt-0.5">
-                          {member.email}
-                        </a>
-                      )}
-                    </div>
-                  ))}
-                </div>
-
-                {/* Contact Sections */}
-                <div className="space-y-6 pt-6 border-t border-black/10">
-                  {contactSections.map((member, i) => (
-                    <div key={i}>
-                      <p className="font-bold text-sm uppercase tracking-wide text-black mb-0.5">{member.title}</p>
-                      {member.email && (
-                        <a href={`mailto:${member.email}`} className="text-sm text-neutral-500 hover:text-black hover:underline transition-colors block mt-0.5">
-                          {member.email}
-                        </a>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
-
+              ))}
             </div>
           </div>
         </div>
