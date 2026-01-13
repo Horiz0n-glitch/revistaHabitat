@@ -154,26 +154,12 @@ interface FundacionesDirectoryProps {
 
 export function FundacionesDirectory({ fundaciones }: FundacionesDirectoryProps) {
     if (fundaciones.length === 0) {
-        return (
-            <div className="text-center py-12 bg-muted/30 rounded-lg">
-                <h3 className="font-serif text-xl font-semibold mb-2">Directorio de Fundaciones</h3>
-                <p className="text-muted-foreground">
-                    Próximamente encontrarás aquí un directorio completo de fundaciones dedicadas al patrimonio y la arquitectura.
-                </p>
-            </div>
-        )
+        return null
     }
 
     return (
         <div className="space-y-8">
-            <div className="text-center max-w-2xl mx-auto">
-                <h2 className="font-serif text-2xl md:text-3xl font-bold mb-4">
-                    Directorio de Fundaciones
-                </h2>
-                <p className="text-muted-foreground">
-                    Conoce las fundaciones dedicadas al patrimonio, la arquitectura y el desarrollo cultural y social.
-                </p>
-            </div>
+
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {fundaciones.map((fundacion) => (

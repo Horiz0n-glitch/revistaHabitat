@@ -43,10 +43,7 @@ export default async function FundacionesPage() {
                             <h1 className="font-serif text-4xl md:text-5xl font-bold mb-6 text-black">
                                 Guía de Fundaciones
                             </h1>
-                            <p className="text-xl text-muted-foreground leading-relaxed">
-                                Un espacio dedicado a las organizaciones que trabajan por la preservación del patrimonio,
-                                la difusión de la arquitectura y el impacto social positivo en nuestro entorno.
-                            </p>
+
                         </div>
                     </div>
 

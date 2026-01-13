@@ -84,6 +84,84 @@ export default function PublicidadPage() {
     },
   ]
 
+  const revistaBimestralPricing = [
+    {
+      format: "Contratapa",
+      price: "$1.740.000",
+      description: "Aviso página entera",
+      dimensions: "23 cm x 30 cm",
+    },
+    {
+      format: "Retiraciones",
+      price: "$1.350.000",
+      description: "Aviso página entera",
+      dimensions: "23 cm x 30 cm",
+    },
+    {
+      format: "1 Página",
+      price: "$1.110.000",
+      description: "Aviso página entera",
+      dimensions: "23 cm x 30 cm",
+    },
+    {
+      format: "1/2 Página",
+      price: "$664.000",
+      description: "Aviso media página",
+      dimensions: "23 cm x 15 cm",
+    },
+    {
+      format: "1/4 Página",
+      price: "$400.000",
+      description: "Aviso 1/4 de página",
+      dimensions: "11,5 cm x 15 cm",
+    },
+    {
+      format: "1/8 Página",
+      price: "$238.000",
+      description: "Aviso 1/8 de página",
+      dimensions: "11,5 cm x 7,5 cm",
+    },
+  ]
+
+  const revistaSemestralPricing = [
+    {
+      format: "Contratapa",
+      price: "$4.340.000",
+      description: "Aviso página entera",
+      dimensions: "23 cm x 30 cm",
+    },
+    {
+      format: "Retiraciones",
+      price: "$3.360.000",
+      description: "Aviso página entera",
+      dimensions: "23 cm x 30 cm",
+    },
+    {
+      format: "1 Página",
+      price: "$2.760.000",
+      description: "Aviso página entera",
+      dimensions: "23 cm x 30 cm",
+    },
+    {
+      format: "1/2 Página",
+      price: "$1.660.000",
+      description: "Aviso media página",
+      dimensions: "23 cm x 15 cm",
+    },
+    {
+      format: "1/4 Página",
+      price: "$995.000",
+      description: "Aviso 1/4 de página",
+      dimensions: "11,5 cm x 15 cm",
+    },
+    {
+      format: "1/8 Página",
+      price: "$595.000",
+      description: "Aviso 1/8 de página",
+      dimensions: "11,5 cm x 7,5 cm",
+    },
+  ]
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -97,8 +175,7 @@ export default function PublicidadPage() {
                 Publicidad en Revista Habitat
               </h1>
               <p className="text-xl text-muted-foreground leading-relaxed text-pretty">
-                Conecta tu marca con una audiencia de profesionales y entusiastas del diseño, la arquitectura y la
-                construcción. Ofrecemos formatos publicitarios premium con ubicaciones estratégicas para maximizar el
+                Conecta tu marca, tu empresa, tu oficio. Con las obras de puesta en valor y patrimonio que cada comunidad decidió preservar. Ofrecemos formatos publicitarios premium con ubicaciones estratégicas para maximizar el
                 impacto de tu mensaje.
               </p>
             </div>
@@ -195,77 +272,102 @@ export default function PublicidadPage() {
         {/* Pricing Table Section */}
         <section className="bg-muted py-16">
           <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-24">
-            <div className="max-w-5xl mx-auto">
-              <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4 text-center">
-                Formatos y Tarifas Publicitarias
-              </h2>
-              <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-                Elige el formato que mejor se adapte a tus objetivos de marketing. Todos los precios son mensuales y
-                están expresados en pesos argentinos (ARS).
-              </p>
+            <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4 text-center">
+              Tarifas Publicitarias
+            </h2>
+            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+              Elige el formato que mejor se adapte a tus objetivos de marketing. Todos los precios están expresados en pesos argentinos (ARS).
+            </p>
 
-              <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-                <div className="overflow-x-auto">
-                  <table className="w-full">
-                    <thead>
-                      <tr className="bg-accent text-accent-foreground">
-                        <th className="px-6 py-4 text-left font-semibold">Tipo de Anuncio</th>
-                        <th className="px-6 py-4 text-left font-semibold">Dimensión</th>
-                        <th className="px-6 py-4 text-left font-semibold">Descripción</th>
-                        <th className="px-6 py-4 text-center font-semibold">Visibilidad</th>
-                        <th className="px-6 py-4 text-right font-semibold">Precio Mensual</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {pricingTiers.map((tier, index) => (
-                        <tr key={index} className="border-b border-gray-200 hover:bg-gray-50 transition-colors">
-                          <td className="px-6 py-4 font-medium">{tier.type}</td>
-                          <td className="px-6 py-4 text-sm text-muted-foreground whitespace-nowrap">{tier.dimension}</td>
-                          <td className="px-6 py-4 text-sm text-muted-foreground max-w-xs">{tier.description}</td>
-                          <td className="px-6 py-4">
-                            <div className="flex items-center justify-center gap-0.5">
-                              {[...Array(4)].map((_, i) => (
-                                <Star
-                                  key={i}
-                                  className={`h-4 w-4 ${i < tier.visibility ? "fill-amber-400 text-amber-400" : "text-gray-300"
-                                    }`}
-                                />
-                              ))}
-                            </div>
-                          </td>
-                          <td className="px-6 py-4 text-right font-bold text-lg whitespace-nowrap">{tier.price}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {/* Web Pricing Card */}
+              <Card className="flex flex-col">
+                <CardHeader className="bg-accent text-accent-foreground rounded-t-lg">
+                  <CardTitle className="font-serif text-xl text-center">Web. Tipo de anuncio</CardTitle>
+                  <p className="text-sm text-center opacity-90">Precios mensuales</p>
+                </CardHeader>
+                <CardContent className="flex-1 p-0">
+                  <div className="divide-y divide-gray-200">
+                    {pricingTiers.map((tier, index) => (
+                      <div key={index} className="p-4 hover:bg-gray-50 transition-colors">
+                        <div className="flex justify-between items-start mb-1">
+                          <span className="font-medium text-sm">{tier.type}</span>
+                          <span className="font-bold text-accent whitespace-nowrap">{tier.price}</span>
+                        </div>
+                        <p className="text-xs text-muted-foreground">{tier.dimension}</p>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
 
-              <div className="mt-8 bg-accent/5 p-6 rounded-lg">
-                <h3 className="font-serif text-xl font-bold mb-3">Información Adicional</h3>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
-                    <span>
-                      <strong>Descuentos por volumen:</strong> Consulta por paquetes trimestrales y anuales con
-                      descuentos de hasta 20%.
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
-                    <span>
-                      <strong>Reportes mensuales:</strong> Recibirás informes detallados con métricas de rendimiento de
-                      tu campaña.
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
-                    <span>
-                      <strong>Pago:</strong> Transferencia bancaria o depósito. Facturación disponible para empresas.
-                    </span>
-                  </li>
-                </ul>
-              </div>
+              {/* Revista Digital Bimestral Card */}
+              <Card className="flex flex-col">
+                <CardHeader className="bg-accent text-accent-foreground rounded-t-lg">
+                  <CardTitle className="font-serif text-xl text-center">Revista Digital Bimestral</CardTitle>
+                  <p className="text-sm text-center opacity-90">Edición digital interactiva</p>
+                </CardHeader>
+                <CardContent className="flex-1 p-0">
+                  <div className="divide-y divide-gray-200">
+                    {revistaBimestralPricing.map((item, index) => (
+                      <div key={index} className="p-4 hover:bg-gray-50 transition-colors">
+                        <div className="flex justify-between items-start mb-1">
+                          <span className="font-medium text-sm">{item.format}</span>
+                          <span className="font-bold text-accent whitespace-nowrap">{item.price}</span>
+                        </div>
+                        <p className="text-xs text-muted-foreground">{item.dimensions}</p>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Revista en Papel Semestral Card */}
+              <Card className="flex flex-col">
+                <CardHeader className="bg-accent text-accent-foreground rounded-t-lg">
+                  <CardTitle className="font-serif text-xl text-center">Revista en Papel Semestral</CardTitle>
+                  <p className="text-sm text-center opacity-90">Revista impresa tradicional</p>
+                </CardHeader>
+                <CardContent className="flex-1 p-0">
+                  <div className="divide-y divide-gray-200">
+                    {revistaSemestralPricing.map((item, index) => (
+                      <div key={index} className="p-4 hover:bg-gray-50 transition-colors">
+                        <div className="flex justify-between items-start mb-1">
+                          <span className="font-medium text-sm">{item.format}</span>
+                          <span className="font-bold text-accent whitespace-nowrap">{item.price}</span>
+                        </div>
+                        <p className="text-xs text-muted-foreground">{item.dimensions}</p>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            <div className="mt-8 bg-accent/5 p-6 rounded-lg max-w-4xl mx-auto">
+              <h3 className="font-serif text-xl font-bold mb-3">Información Adicional</h3>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
+                  <span>
+                    <strong>Descuentos por volumen:</strong> Consulta por paquetes trimestrales y anuales con
+                    descuentos de hasta 20%.
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
+                  <span>
+                    <strong>Reportes mensuales:</strong> Recibirás informes detallados con métricas de rendimiento de
+                    tu campaña.
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
+                  <span>
+                    <strong>Pago:</strong> Transferencia bancaria o depósito. Facturación disponible para empresas.
+                  </span>
+                </li>
+              </ul>
             </div>
           </div>
         </section>
