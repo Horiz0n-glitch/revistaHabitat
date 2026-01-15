@@ -81,6 +81,7 @@ export async function getArticuloBySlug(slug: string): Promise<Articulo | null> 
           "autor.id",
           "autor.nombre",
           "autor.email", // Added author email field
+          "autor.rol",
           "autor.avatar",
           "autor.biografia",
         ],
@@ -444,11 +445,15 @@ export async function getInterviewBySlug(slug: string) {
         limit: 1,
         fields: [
           "*",
+          "nombre_entrevistado",
+          "cargo_entrevistado",
           "categoria.id",
           "categoria.nombre",
           "categoria.slug",
           "autor.id",
           "autor.nombre",
+          "autor.email",
+          "autor.rol",
           "autor.avatar",
           "autor.biografia",
           "galeria.directus_files_id"

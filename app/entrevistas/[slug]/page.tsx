@@ -92,15 +92,38 @@ export default async function InterviewPage({ params }: { params: Promise<{ slug
 
                   {/* Interviewee Info Card */}
                   <div className="bg-muted/50 border border-border rounded-lg p-6 flex flex-col md:flex-row gap-6 items-start md:items-center">
-                    <div className="h-16 w-16 rounded-full bg-accent/20 flex items-center justify-center shrink-0">
-                      <Mic className="h-8 w-8 text-accent" />
+                    <div className="shrink-0">
+                      {interview.avatar_entrevistado ? (
+                        <div className="h-20 w-20 rounded-full overflow-hidden border-2 border-accent/20 relative">
+                          <Image
+                            src={getAssetUrl(interview.avatar_entrevistado)}
+                            alt={interview.nombre_entrevistado}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                      ) : (
+                        <div className="h-20 w-20 rounded-full bg-accent/20 flex items-center justify-center">
+                          <Mic className="h-8 w-8 text-accent" />
+                        </div>
+                      )}
                     </div>
                     <div className="space-y-1">
                       <p className="text-sm text-muted-foreground uppercase tracking-wider font-semibold">Entrevistado</p>
                       <h3 className="text-xl font-bold font-serif">{interview.nombre_entrevistado}</h3>
-                      {interview.cargo_entrevistado && (
-                        <p className="text-muted-foreground">{interview.cargo_entrevistado}</p>
-                      )}
+
+                      <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-3">
+                        {interview.cargo_entrevistado && (
+                          <p className="text-foreground/80 font-medium">{interview.cargo_entrevistado}</p>
+                        )}
+
+                        {interview.email_entrevistado && (
+                          <>
+                            {interview.cargo_entrevistado && <span className="hidden sm:inline text-border">|</span>}
+                            <p className="text-muted-foreground text-sm">{interview.email_entrevistado}</p>
+                          </>
+                        )}
+                      </div>
                     </div>
                   </div>
 
@@ -122,8 +145,17 @@ export default async function InterviewPage({ params }: { params: Promise<{ slug
                         />
                       </div>
                     )}
-                    <div>
-                      <p className="font-medium"> <span className="font-light">Por:</span> {autor?.nombre || "Revista Habitat"}</p>
+                    <div className="space-y-0.5">
+                      <div className="flex flex-wrap items-baseline gap-x-3">
+                        <p className="font-medium"> <span className="font-light">Por:</span> {autor?.nombre || "Revista Habitat"}</p>
+                        {autor?.email && (
+                          <div className="flex items-center gap-2">
+                            <span className="hidden sm:inline text-border">|</span>
+                            <p className="text-sm text-muted-foreground">{autor.email}</p>
+                          </div>
+                        )}
+                      </div>
+                      {autor?.rol && <p className="text-sm font-medium text-foreground/80">{autor.rol}</p>}
                       <p className="text-sm text-muted-foreground flex items-center gap-1">
                         <Clock className="h-3 w-3" />
                         {new Date(interview.fecha_publicacion).toLocaleDateString("es-ES", {
@@ -191,10 +223,10 @@ export default async function InterviewPage({ params }: { params: Promise<{ slug
               </div>
             </aside>
           </div>
-        </div>
-      </main>
+        </div >
+      </main >
 
       <Footer />
-    </div>
+    </div >
   )
 }

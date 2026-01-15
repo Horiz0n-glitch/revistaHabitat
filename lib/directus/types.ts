@@ -80,6 +80,8 @@ export interface Entrevista {
   imagen_principal?: string
   nombre_entrevistado: string
   cargo_entrevistado?: string
+  email_entrevistado?: string
+  avatar_entrevistado?: string
   archivo_de_audio?: string
   categoria?: number | Categoria
   autor: number | Autor

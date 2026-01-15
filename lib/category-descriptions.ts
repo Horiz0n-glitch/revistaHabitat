@@ -13,6 +13,7 @@ export const categoryDescriptions: Record<string, string> = {
     "reportajes": "Investigaciones detalladas sobre proyectos, tendencias y temas relevantes en arquitectura y patrimonio.",
     "articulos-tecnicos": "Contenido especializado con enfoque técnico sobre metodologías, materiales y procesos constructivos.",
     "columnistas": "Opiniones y reflexiones de expertos sobre los desafíos actuales de la arquitectura y el urbanismo.",
+    "tributos": "Homenajes y tributos a personalidades destacadas de la arquitectura y el patrimonio.",
 
     // Cultura y Patrimonio
     "cultura-y-patrimonio": "Explora la riqueza del patrimonio arquitectónico y cultural, su preservación y puesta en valor.",
@@ -42,7 +43,7 @@ export const categoryDescriptions: Record<string, string> = {
     "facultades-instituc-y-escuelas": "Centros educativos de formación en arquitectura, urbanismo y disciplinas relacionadas.",
     "museos": "Espacios museísticos dedicados a la arquitectura, el diseño y el patrimonio cultural.",
     "org-varios": "Otras organizaciones e instituciones vinculadas al sector de la arquitectura y el patrimonio.",
-    "fundaciones": "Directorio de fundaciones dedicadas al patrimonio, la arquitectura y el desarrollo cultural y social.",
+    "fundaciones": "Espacio dedicado a las organizaciones q trabajas con la mirada en la comunidad",
 
     // Responsabilidad Social (RS)
     "rse": "Iniciativas de responsabilidad social en arquitectura, construcción y desarrollo urbano sustentable.",
@@ -67,6 +68,7 @@ export const categoryDescriptions: Record<string, string> = {
     "eficiencia-energetica": "Estrategias y tecnologías para reducir el consumo energético en edificios y ciudades.",
     "empresas-sustentables": "Empresas comprometidas con prácticas constructivas sustentables y certificaciones ambientales.",
     "energias-renovables": "Integración de energías limpias en proyectos arquitectónicos y desarrollos urbanos.",
+    "tecnologia": "Innovaciones tecnológicas aplicadas a la construcción, arquitectura y diseño sustentable.",
 
     // Turismo Cultural
     "turismo-cultural": "Descubre destinos, rutas y experiencias que vinculan turismo, arquitectura y patrimonio cultural.",

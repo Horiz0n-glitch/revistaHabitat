@@ -103,7 +103,7 @@ export default async function SubcategoryPage({
 
       if (subcategoria!.slug !== 'fundaciones') {
         // Get all articles and filter by subcategory
-        const allArticulos = await getArticulos({ limit: 100 })
+        const allArticulos = await getArticulos({ limit: 1000 })
         items = allArticulos.filter((art) => {
           const subcatObj = typeof art.subcategoria === "object" ? art.subcategoria : null;
           const catObj = typeof art.categoria === "object" ? art.categoria : null;

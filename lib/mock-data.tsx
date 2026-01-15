@@ -9,6 +9,7 @@ export const navigationCategories = [
       { name: "Reportajes", slug: "reportajes" },
       { name: "Artículos Técnicos", slug: "articulos-tecnicos" },
       { name: "Columnistas", slug: "columnistas" },
+      { name: "Tributos", slug: "tributos" },
     ],
   },
   {
@@ -90,6 +91,7 @@ export const navigationCategories = [
       { name: "Empresas Sustentables", slug: "empresas-sustentables" },
       { name: "Energías Renovables", slug: "energias-renovables" },
       { name: "Concursos/Eventos", slug: "concursos-eventos-sustentable" },
+      { name: "Tecnología", slug: "tecnologia" },
     ],
   },
   {
@@ -131,7 +133,6 @@ export const navigationCategories = [
     slug: "guias",
     subcategories: [
       { name: "Fundaciones", slug: "fundaciones" },
-      { name: "Instituciones", slug: "instituciones" },
     ],
   },
 ]

@@ -190,9 +190,17 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                         className="object-cover"
                       />
                     </div>
-                    <div>
-                      <p className="font-medium"> <span className="font-light">Por:</span> {autor?.nombre || "Equipo Editorial"}</p>
-                      {autor?.email && <p className="text-sm text-muted-foreground">{autor.email}</p>}
+                    <div className="space-y-0.5">
+                      <div className="flex flex-wrap items-baseline gap-x-3">
+                        <p className="font-medium"> <span className="font-light">Por:</span> {autor?.nombre || "Equipo Editorial"}</p>
+                        {autor?.email && (
+                          <div className="flex items-center gap-2">
+                            <span className="hidden sm:inline text-border">|</span>
+                            <p className="text-sm text-muted-foreground">{autor.email}</p>
+                          </div>
+                        )}
+                      </div>
+                      {autor?.rol && <p className="text-sm font-medium text-foreground/80">{autor.rol}</p>}
                       <p className="text-sm text-muted-foreground flex items-center gap-1">
                         <Clock className="h-3 w-3" />
                         {new Date(articulo.fecha_publicacion).toLocaleDateString("es-ES", {

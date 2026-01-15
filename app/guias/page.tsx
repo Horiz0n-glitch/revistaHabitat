@@ -20,13 +20,6 @@ export default function GuiasPage() {
             icon: Building2,
             color: "bg-blue-500/10 text-blue-600",
         },
-        {
-            title: "Guía de Instituciones",
-            description: "Conoce las instituciones públicas y privadas que marcan la agenda del sector.",
-            href: "/guias/instituciones",
-            icon: BookOpen,
-            color: "bg-emerald-500/10 text-emerald-600",
-        },
         // Future guides can be added here
         /*
         {

@@ -54,7 +54,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
       }
     }
 
-    const allArticulos = await getArticulos({ limit: 100 })
+    const allArticulos = await getArticulos({ limit: 1000 })
 
     // Filter articles that belong to this category OR have this category as their subcategory's parent
     articulos = allArticulos.filter((art) => {
