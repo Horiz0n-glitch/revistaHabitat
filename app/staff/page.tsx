@@ -21,7 +21,7 @@ export default function StaffPage() {
     },
     {
       title: "Director Adjunto",
-      name: "Dr. Oscar De Masi",
+      name: "Dr. Oscar Andrés De Masi",
       email: "oademasi@gmail.com",
     },
     {

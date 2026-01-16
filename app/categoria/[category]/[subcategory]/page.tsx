@@ -5,11 +5,10 @@ import Link from "next/link"
 import Image from "next/image"
 import { Clock, ChevronRight } from "lucide-react"
 import { notFound } from "next/navigation"
-import { getCategorias, getArticulos, getFundaciones, getInterviews } from "@/lib/directus/queries"
+import { getCategorias, getArticulos, getInterviews } from "@/lib/directus/queries"
 import { getAssetUrl } from "@/lib/directus/client"
-import type { Articulo, Categoria, Fundacion, Entrevista } from "@/lib/directus/types"
+import type { Articulo, Categoria, Entrevista } from "@/lib/directus/types"
 
-import { FundacionesDirectory } from "@/components/fundaciones-directory"
 import { categoryDescriptions, getCategoryDisplayName } from "@/lib/category-descriptions"
 import { navigationCategories } from "@/lib/mock-data"
 
@@ -31,7 +30,7 @@ export default async function SubcategoryPage({
   let categoria: Categoria | null = null
   let subcategoria: Categoria | null = null
   let items: (Articulo | Entrevista)[] = []
-  let fundaciones: Fundacion[] = []
+
 
   try {
     const categorias = await getCategorias()
@@ -73,68 +72,54 @@ export default async function SubcategoryPage({
 
       if (!subcategoria) {
         // Special handling for virtual pages like fundaciones directory if handled via subcategory slug
-        if (subcategorySlug === 'fundaciones') {
-          // Mock subcategory for fundaciones directory logic below
+        // Check if it exists in mock navigation structure (hybrid mode support)
+        // This allows navigation to work even if the subcategory hasn't been created in DB yet
+        const knownCategory = navigationCategories.find(c => c.slug === categorySlug);
+        const knownSubcategory = knownCategory?.subcategories?.find(s => s.slug === subcategorySlug);
+
+        if (knownSubcategory) {
           subcategoria = {
-            id: 888888,
-            nombre: "Fundaciones",
-            slug: "fundaciones",
-            estado: "publicado"
+            id: 0, // Virtual ID indicating no DB record yet
+            nombre: knownSubcategory.name,
+            slug: knownSubcategory.slug,
+            estado: "publicado",
+            categoria_padre: categoria.id
           } as Categoria
         } else {
-          // Check if it exists in mock navigation structure (hybrid mode support)
-          // This allows navigation to work even if the subcategory hasn't been created in DB yet
-          const knownCategory = navigationCategories.find(c => c.slug === categorySlug);
-          const knownSubcategory = knownCategory?.subcategories?.find(s => s.slug === subcategorySlug);
-
-          if (knownSubcategory) {
-            subcategoria = {
-              id: 0, // Virtual ID indicating no DB record yet
-              nombre: knownSubcategory.name,
-              slug: knownSubcategory.slug,
-              estado: "publicado",
-              categoria_padre: categoria.id
-            } as Categoria
-          } else {
-            notFound()
-          }
+          notFound()
         }
       }
 
-      if (subcategoria!.slug !== 'fundaciones') {
-        // Get all articles and filter by subcategory
-        const allArticulos = await getArticulos({ limit: 1000 })
-        items = allArticulos.filter((art) => {
-          const subcatObj = typeof art.subcategoria === "object" ? art.subcategoria : null;
-          const catObj = typeof art.categoria === "object" ? art.categoria : null;
+      // Get all articles and filter by subcategory
+      const allArticulos = await getArticulos({ limit: 1000 })
+      items = allArticulos.filter((art) => {
+        const subcatObj = typeof art.subcategoria === "object" ? art.subcategoria : null;
+        const catObj = typeof art.categoria === "object" ? art.categoria : null;
 
-          const subId = subcatObj?.id || art.subcategoria;
-          const catId = catObj?.id || art.categoria;
+        const subId = subcatObj?.id || art.subcategoria;
+        const catId = catObj?.id || art.categoria;
 
-          // Check by ID
-          const matchesId = subId === subcategoria!.id || catId === subcategoria!.id;
+        // Check by ID
+        const matchesId = subId === subcategoria!.id || catId === subcategoria!.id;
 
-          // Check by Slug (more robust if IDs fail or are virtual)
-          const matchesSlug =
-            (subcatObj?.slug === subcategorySlug) ||
-            (catObj?.slug === subcategorySlug) ||
-            (subcatObj?.slug === subcategoria!.slug) ||
-            (catObj?.slug === subcategoria!.slug);
+        // Check by Slug (more robust if IDs fail or are virtual)
+        const matchesSlug =
+          (subcatObj?.slug === subcategorySlug) ||
+          (catObj?.slug === subcategorySlug) ||
+          (subcatObj?.slug === subcategoria!.slug) ||
+          (catObj?.slug === subcategoria!.slug);
 
-          // Check by Name (backup for minor discrepancies)
-          const matchesName =
-            (subcatObj?.nombre?.toLowerCase() === subcategoria!.nombre?.toLowerCase()) ||
-            (catObj?.nombre?.toLowerCase() === subcategoria!.nombre?.toLowerCase());
+        // Check by Name (backup for minor discrepancies)
+        const matchesName =
+          (subcatObj?.nombre?.toLowerCase() === subcategoria!.nombre?.toLowerCase()) ||
+          (catObj?.nombre?.toLowerCase() === subcategoria!.nombre?.toLowerCase());
 
-          return matchesId || matchesSlug || matchesName;
-        })
-      }
+        return matchesId || matchesSlug || matchesName;
+      })
     }
 
     // If this is the fundaciones subcategory, fetch fundaciones
-    if (subcategorySlug === 'fundaciones') {
-      fundaciones = await getFundaciones()
-    }
+
   } catch (error) {
     console.error("[v0] Error fetching subcategory data:", error)
     notFound()
@@ -177,12 +162,7 @@ export default async function SubcategoryPage({
 
 
 
-        {/* Fundaciones Directory - Only for fundaciones subcategory */}
-        {subcategorySlug === 'fundaciones' && (
-          <section className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-24 py-12 md:py-16 bg-muted/30">
-            <FundacionesDirectory fundaciones={fundaciones} />
-          </section>
-        )}
+
 
         {/* Content Grid */}
         <section className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-24 py-12">

@@ -13,13 +13,7 @@ export const metadata = {
 
 export default function GuiasPage() {
     const guias = [
-        {
-            title: "Guía de Fundaciones",
-            description: "Directorio completo de fundaciones dedicadas al patrimonio, la arquitectura y el desarrollo cultural.",
-            href: "/guias/fundaciones",
-            icon: Building2,
-            color: "bg-blue-500/10 text-blue-600",
-        },
+
         // Future guides can be added here
         /*
         {

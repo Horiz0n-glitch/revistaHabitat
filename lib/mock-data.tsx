@@ -128,13 +128,7 @@ export const navigationCategories = [
     slug: "publicaciones",
     subcategories: [],
   },
-  {
-    name: "Guías",
-    slug: "guias",
-    subcategories: [
-      { name: "Fundaciones", slug: "fundaciones" },
-    ],
-  },
+
 ]
 
 // Mock articles
