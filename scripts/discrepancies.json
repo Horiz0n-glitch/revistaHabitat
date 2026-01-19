@@ -24,6 +24,10 @@
         {
           "name": "Reportajes",
           "slug": "reportajes"
+        },
+        {
+          "name": "Tributos",
+          "slug": "tributos"
         }
       ]
     },
@@ -117,12 +121,20 @@
       "slug": "reciclaje",
       "subcategories": [
         {
+          "name": "Decoración y Diseño",
+          "slug": "decoracion-y-diseño"
+        },
+        {
           "name": "Novedades",
           "slug": "novedades-reciclaje"
         },
         {
           "name": "Reformas / Remodelación",
           "slug": "reformas-remodelacion"
+        },
+        {
+          "name": "Renovación",
+          "slug": "renovacion"
         }
       ]
     },
@@ -157,6 +169,10 @@
         {
           "name": "Energías Renovables",
           "slug": "energias-renovables"
+        },
+        {
+          "name": "Tecnología",
+          "slug": "tecnologia"
         }
       ]
     },
@@ -335,6 +351,10 @@
         {
           "name": "Columnistas",
           "slug": "columnistas"
+        },
+        {
+          "name": "Tributos",
+          "slug": "tributos"
         }
       ]
     },
@@ -381,20 +401,16 @@
           "slug": "encuentros"
         },
         {
-          "name": "Eventos / Concursos",
-          "slug": "eventos-concursos"
-        },
-        {
-          "name": "Exposiciones",
-          "slug": "exposiciones"
-        },
-        {
-          "name": "Ferias y Congresos",
-          "slug": "ferias-y-congresos"
-        },
-        {
           "name": "Seminarios",
           "slug": "seminarios"
+        },
+        {
+          "name": "Diplomatura",
+          "slug": "diplomatura"
+        },
+        {
+          "name": "Universidades",
+          "slug": "universidades"
         }
       ]
     },
@@ -417,6 +433,10 @@
         {
           "name": "Monumentos",
           "slug": "monumentos"
+        },
+        {
+          "name": "Patologías",
+          "slug": "patologias"
         }
       ]
     },
@@ -495,6 +515,10 @@
         {
           "name": "Mantenimiento",
           "slug": "mantenimiento"
+        },
+        {
+          "name": "Novedades",
+          "slug": "novedades-reciclaje"
         }
       ]
     },
@@ -525,6 +549,14 @@
         {
           "name": "Energías Renovables",
           "slug": "energias-renovables"
+        },
+        {
+          "name": "Concursos/Eventos",
+          "slug": "concursos-eventos-sustentable"
+        },
+        {
+          "name": "Tecnología",
+          "slug": "tecnologia"
         }
       ]
     },
@@ -559,6 +591,10 @@
         {
           "name": "Novedades",
           "slug": "novedades"
+        },
+        {
+          "name": "Exposiciones y Ferias",
+          "slug": "exposiciones-y-ferias"
         }
       ]
     },
@@ -603,17 +639,21 @@
           "slug": "novedades"
         }
       ]
+    },
+    {
+      "name": "Publicaciones",
+      "slug": "publicaciones",
+      "subcategories": []
     }
   ],
   "discrepancies": [
     "[MISSING CATEGORY] DB has 'Arquitectura' (slug: arquitectura) which is not in the site navigation.",
     "[MISSING CATEGORY] DB has 'Diseño' (slug: diseno) which is not in the site navigation.",
     "[MISSING CATEGORY] DB has 'Sustentabilidad' (slug: sustentabilidad) which is not in the site navigation.",
-    "[MISSING SUBCATEGORY] Category 'Restauración' has subcategory 'Patologías' (slug: patologias) in DB but not in site navigation.",
     "[MISSING CATEGORY] DB has 'Urbanismo' (slug: urbanismo) which is not in the site navigation.",
-    "[MISSING SUBCATEGORY] Category 'Reciclaje' has subcategory 'Novedades' (slug: novedades-reciclaje) in DB but not in site navigation.",
+    "[MISSING SUBCATEGORY] Category 'Reciclaje' has subcategory 'Decoración y Diseño' (slug: decoracion-y-diseño) in DB but not in site navigation.",
+    "[MISSING SUBCATEGORY] Category 'Reciclaje' has subcategory 'Renovación' (slug: renovacion) in DB but not in site navigation.",
     "[MISSING SUBCATEGORY] Category 'Sustentable' has subcategory ' Concursos/Eventos' (slug:  concursos-eventos-sustentable) in DB but not in site navigation.",
-    "[MISSING SUBCATEGORY] Category 'Turismo Cultural' has subcategory 'Exposiciones y Ferias' (slug: exposiciones-y-ferias) in DB but not in site navigation.",
     "[MISSING CATEGORY] DB has 'Cultura' (slug: Cultura) which is not in the site navigation.",
     "[MISSING CATEGORY] DB has 'Empresas' (slug: empresas) which is not in the site navigation.",
     "[MISSING CATEGORY] DB has 'Generales' (slug: generales) which is not in the site navigation.",
@@ -623,7 +663,6 @@
     "[MISSING CATEGORY] DB has 'Noticias / Novedades' (slug: noticias / novedades) which is not in the site navigation.",
     "[MISSING CATEGORY] DB has 'Novedades' (slug: novedades) which is not in the site navigation.",
     "[MISSING CATEGORY] DB has 'Patrimonio cultural' (slug: patrimonio cultural) which is not in the site navigation.",
-    "[MISSING CATEGORY] DB has 'Publicaciones' (slug: publicaciones) which is not in the site navigation.",
     "[MISSING CATEGORY] DB has 'Responsabilidad social' (slug: responsabilidad social) which is not in the site navigation.",
     "[MISSING CATEGORY] DB has 'Slider' (slug: slider) which is not in the site navigation."
   ]
