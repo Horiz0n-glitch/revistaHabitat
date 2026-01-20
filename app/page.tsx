@@ -417,7 +417,7 @@ export default async function HomePage() {
                             { name: "Restauración", slug: "restauracion" },
                             { name: "Turismo Cultural", slug: "turismo-cultural" },
                             { name: "Eventos y Cursos", slug: "eventos-cursos" },
-                            { name: "Propiedades", slug: "propiedades" },
+                            { name: "Arq. y Const.", slug: "arq-y-const" },
                             { name: "Resp. Social", slug: "rse" },
                           ].map((category) => (
                             <Link

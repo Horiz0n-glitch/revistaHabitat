@@ -111,8 +111,8 @@ export const navigationCategories = [
     ],
   },
   {
-    name: "Propiedades",
-    slug: "propiedades",
+    name: "Arq. y Const.",
+    slug: "arq-y-const",
     subcategories: [
       { name: "Desarrollo Inmobiliario", slug: "desarrollo-inmobiliario" },
       { name: "Barrios Cerrados", slug: "barrios-cerrados" },

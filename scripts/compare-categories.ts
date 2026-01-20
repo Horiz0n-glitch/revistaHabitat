@@ -1,73 +1,96 @@
 
-import 'dotenv/config'
-import { getCategorias, getSubcategorias } from "@/lib/directus/queries"
-import { navigationCategories } from "@/lib/mock-data"
+import * as fs from 'fs';
+import * as path from 'path';
+
+// Load environment variables
+const loadEnv = () => {
+    const envFiles = ['.env.local', '.env'];
+    for (const file of envFiles) {
+        const filePath = path.join(process.cwd(), file);
+        if (fs.existsSync(filePath)) {
+            const content = fs.readFileSync(filePath, 'utf-8');
+            content.split('\n').forEach(line => {
+                const match = line.match(/^([^#=]+)=(.*)$/);
+                if (match) {
+                    const key = match[1].trim();
+                    const value = match[2].trim().replace(/^['"]|['"]$/g, '');
+                    if (!process.env[key]) {
+                        process.env[key] = value;
+                    }
+                }
+            });
+        }
+    }
+};
+
+loadEnv();
 
 async function compareCategories() {
     try {
-        console.log("Fetching categories from Directus...")
-        const dbCategories = await getCategorias()
-        const dbSubcategories = await getSubcategorias()
+        const { getDirectusClient } = await import("../lib/directus/client");
+        const { readItems } = await import("@directus/sdk");
+        const { navigationCategories } = await import("../lib/mock-data");
 
-        // Flatten DB categories for easier comparison
-        // Categories with no parent are top-level
-        const dbTopLevel = dbCategories.filter(c => !c.categoria_padre)
+        const client = getDirectusClient() as any;
 
-        // Create a map of DB categories
-        const dbStructure = dbTopLevel.map(cat => {
-            const subs = dbCategories.filter(sub => sub.categoria_padre === cat.id)
-            return {
-                name: cat.nombre,
-                slug: cat.slug,
-                subcategories: subs.map(s => ({
-                    name: s.nombre,
-                    slug: s.slug
-                }))
+        console.log("Fetching categories from Directus...");
+        // 1. Fetch from Directus
+        const directusRaw = await client.request(readItems('categorias' as any, {
+            fields: ['id', 'nombre', 'slug', 'categoria_padre', 'estado'] as any,
+            limit: -1
+        } as any)) as any[];
+
+        // 2. Process Site Categories (Mock Data)
+        const siteData: { name: string, slug: string, isSub: boolean, parentSlug?: string }[] = [];
+        navigationCategories.forEach((cat: any) => {
+            siteData.push({ name: cat.name, slug: cat.slug, isSub: false });
+            if (cat.subcategories) {
+                cat.subcategories.forEach((sub: any) => {
+                    // Skip if subcategory slug is same as parent slug (sometimes used for "All" view)
+                    if (sub.slug === cat.slug) return;
+                    siteData.push({ name: sub.name, slug: sub.slug, isSub: true, parentSlug: cat.slug });
+                });
             }
-        })
+        });
 
-        // Flatten Site categories (navigationCategories from mock-data)
-        const siteStructure = navigationCategories.map(cat => ({
-            name: cat.name,
-            slug: cat.slug,
-            subcategories: cat.subcategories?.map(s => ({
-                name: s.name,
-                slug: s.slug
-            })) || []
-        }))
-
-        const discrepancies: string[] = []
-
-        console.log("\n--- DB STRUCTURE ---")
-        console.log(JSON.stringify(dbStructure, null, 2))
-
-        console.log("\n--- SITE STRUCTURE ---")
-        console.log(JSON.stringify(siteStructure, null, 2))
-
-        dbStructure.forEach(dbCat => {
-            // Find matching category in site
-            const siteCat = siteStructure.find(sc => sc.slug === dbCat.slug || sc.name.toLowerCase() === dbCat.name.toLowerCase())
-
-            if (!siteCat) {
-                discrepancies.push(`[MISSING CATEGORY] DB has '${dbCat.name}' (slug: ${dbCat.slug}) which is not in the site navigation.`)
-            } else {
-                // Check subcategories
-                dbCat.subcategories.forEach(dbSub => {
-                    const siteSub = siteCat.subcategories.find(ss => ss.slug === dbSub.slug || ss.name.toLowerCase() === dbSub.name.toLowerCase())
-                    if (!siteSub) {
-                        discrepancies.push(`[MISSING SUBCATEGORY] Category '${dbCat.name}' has subcategory '${dbSub.name}' (slug: ${dbSub.slug}) in DB but not in site navigation.`)
-                    }
-                })
+        // 3. Process Directus Categories
+        const dbData: { name: string, slug: string, isSub: boolean, parentSlug?: string, estado: string }[] = [];
+        directusRaw.forEach((cat: any) => {
+            const isSub = cat.categoria_padre !== null;
+            let parentSlug = undefined;
+            if (isSub) {
+                const parentId = typeof cat.categoria_padre === 'object' ? cat.categoria_padre.id : cat.categoria_padre;
+                const parent = directusRaw.find(p => p.id === parentId);
+                parentSlug = parent?.slug;
             }
-        })
+            dbData.push({ name: cat.nombre, slug: cat.slug, isSub, parentSlug, estado: cat.estado });
+        });
 
-        const fs = require('fs')
-        fs.writeFileSync('scripts/discrepancies.json', JSON.stringify({ dbStructure, siteStructure, discrepancies }, null, 2))
-        console.log("Results written to scripts/discrepancies.json")
+        // 4. Comparison
+        const allSlugs = Array.from(new Set([...siteData.map(s => s.slug), ...dbData.map(d => d.slug)]));
+
+        console.log("\n| Categoría/Subcategoría | Slug | En el Sitio | En Directus | Estado DB |");
+        console.log("|---|-|:---:|:---:|:---:|");
+
+        allSlugs.sort().forEach(slug => {
+            const site = siteData.find(s => s.slug === slug);
+            const db = dbData.find(d => d.slug === slug);
+
+            const name = site?.name || db?.name || slug;
+            const inSite = site ? "✅" : "❌";
+            const inDb = db ? "✅" : "❌";
+            const dbStatus = db ? db.estado : "-";
+            const prefix = (site?.isSub || db?.isSub) ? "  └─ " : "";
+
+            console.log(`| ${prefix}${name} | ${slug} | ${inSite} | ${inDb} | ${dbStatus} |`);
+        });
+
+        console.log("\nTotal en el Sitio:", siteData.length);
+        console.log("Total en Directus:", dbData.length);
 
     } catch (error) {
-        console.error("Error comparing categories:", error)
+        console.error("Error comparing categories:", error);
     }
 }
 
-compareCategories()
+compareCategories();

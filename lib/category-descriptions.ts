@@ -78,8 +78,8 @@ export const categoryDescriptions: Record<string, string> = {
     "informes": "Análisis y reportes sobre el estado del turismo cultural y su impacto en el patrimonio.",
     "novedades": "Últimas noticias y novedades del sector turístico cultural.",
 
-    // Propiedades
-    "propiedades": "Mercado inmobiliario, desarrollos residenciales y tendencias en construcción de viviendas.",
+    // Arq. y Const.
+    "arq-y-const": "Mercado inmobiliario, desarrollos residenciales y tendencias en construcción de viviendas.",
     "barrios-cerrados": "Desarrollos urbanísticos cerrados, comunidades planificadas y nuevas formas de habitar.",
     "casas": "Proyectos residenciales unifamiliares: diseño, construcción y tendencias arquitectónicas.",
     "construccion": "Procesos constructivos, tecnologías, materiales y metodologías de obra.",
