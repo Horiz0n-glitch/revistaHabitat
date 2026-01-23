@@ -59,6 +59,9 @@ export const categoryDescriptions: Record<string, string> = {
     "reciclaje": "Proyectos de reutilización adaptativa de edificios y espacios urbanos existentes.",
     "reformas-remodelacion": "Intervenciones de actualización y transformación de edificios y espacios construidos.",
     "mantenimiento": "Técnicas y estrategias para el mantenimiento preventivo y correctivo de edificaciones.",
+    "decoracion-y-diseño": "Tendencias, propuestas y proyectos de diseño de interiores y decoración para el hábitat contemporáneo.",
+    "arte-urbano": "Expresiones artísticas en el espacio público que transforman y dialogan con el entorno urbano.",
+    "materiales": "Novedades y aplicaciones de materiales innovadores, sustentables y tradicionales en la construcción.",
 
     // Sustentable
     "sustentable": "Arquitectura y urbanismo sustentable: diseño bioclimático, eficiencia energética y construcción verde.",

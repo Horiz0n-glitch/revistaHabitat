@@ -75,11 +75,11 @@ export const navigationCategories = [
     slug: "reciclaje",
     subcategories: [
       { name: "Reciclaje", slug: "reciclaje" },
-      { name: "Reformas / Remodelación", slug: "reformas-remodelacion" },
-      { name: "Mantenimiento", slug: "mantenimiento" },
-      { name: "Novedades", slug: "novedades-reciclaje" },
+      { name: "Reformas/Remodelacion", slug: "reformas-remodelacion" },
       { name: "Decoración y Diseño", slug: "decoracion-y-diseño" },
-      { name: "Renovación", slug: "renovacion" },
+      { name: "Mantenimiento", slug: "mantenimiento" },
+      { name: "Arte Urbano", slug: "arte-urbano" },
+      { name: "Materiales", slug: "materiales" },
     ],
   },
   {

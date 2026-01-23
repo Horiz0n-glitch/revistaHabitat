@@ -178,12 +178,7 @@ export function Header() {
                 </div>
               )}
 
-              <Link
-                href="/revistas"
-                className="text-sm font-semibold text-gray-900 hover:text-gray-600 transition-colors whitespace-nowrap"
-              >
-                Revistas
-              </Link>
+
               {/* Top Nav explicitly excludes Guías - moved to bottom nav */}
             </nav>
 
@@ -299,13 +294,7 @@ export function Header() {
                   </div>
                 )}
 
-                <Link
-                  href="/revistas"
-                  className="px-3 py-2 text-sm font-semibold text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Revistas
-                </Link>
+
 
                 <div className="my-2 h-px bg-gray-200" />
 
