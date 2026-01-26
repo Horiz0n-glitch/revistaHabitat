@@ -34,7 +34,7 @@ export default function StaffPage() {
     groups: [
       { location: "San Juan", name: "Arq. Jorge Alberto Martín", email: "jmartin_1962@yahoo.com.ar" },
       { location: "Entre Rios", name: "Arq. Hugo Lezcano", email: "lhugar@hotmail.com" },
-      { location: "Provincia de Buenos Aires - La Plata", name: "Arq. Jorge Puglisi", email: "jorgearielpuglisi@gmail.com" },
+      { location: "Pcia. de Buenos Aires - La Plata", name: "Arq. Jorge Puglisi", email: "jorgearielpuglisi@gmail.com" },
     ]
   }
 
@@ -42,7 +42,7 @@ export default function StaffPage() {
     title: "CORRESPONSALES",
     groups: [
       { location: "Miami - Orlando - Florida - EEUU", name: "Arq. Jorge Puglisi", email: "jorgearielpuglisi@gmail.com" },
-      { location: "Argentina", name: "Enrique Madia", email: "emadia@aol.com" },
+      { location: "Argentina", name: "Arq. Enrique Madia", email: "emadia@aol.com" },
       { location: "España", name: "Dr. Ing. Ignacio Yusim", email: "ingyusim@yahoo.com.ar" },
       { location: "Italia", name: "Lic. Sebastián Pacheco", email: "sebastian.pach@yahoo.com.ar" },
       { location: "Uruguay", name: "Arq. Eduardo Montemuiño", email: "arqtema@gmail.com" },
@@ -146,7 +146,7 @@ export default function StaffPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
             {representatives.groups.map((item, i) => (
               <div key={i} className="flex flex-col p-4 bg-neutral-50 rounded-lg hover:bg-neutral-100 transition-all duration-300 border border-neutral-100 italic">
-                <p className="font-bold text-[9px] uppercase tracking-wider text-neutral-400 mb-2 not-italic">{item.location}</p>
+                <p className="font-bold text-[11px] uppercase tracking-wider text-neutral-600 mb-2 not-italic">{item.location}</p>
                 {item.name && <p className="text-base text-black font-serif mb-1 leading-tight">{item.name}</p>}
                 <a href={`mailto:${item.email}`} className="text-[10px] text-neutral-500 hover:text-black hover:underline transition-colors mt-auto break-all not-italic">
                   {item.email}
@@ -162,7 +162,7 @@ export default function StaffPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
             {correspondents.groups.map((item, i) => (
               <div key={i} className="flex flex-col p-4 bg-neutral-50 rounded-lg hover:bg-neutral-100 transition-all duration-300">
-                <p className="font-bold text-[9px] uppercase tracking-wider text-neutral-400 mb-2">{item.location}</p>
+                <p className="font-bold text-[11px] uppercase tracking-wider text-neutral-600 mb-2">{item.location}</p>
                 <p className="text-base text-black font-serif italic mb-1 leading-tight">{item.name}</p>
                 <a href={`mailto:${item.email}`} className="text-[10px] text-neutral-500 hover:text-black hover:underline transition-colors mt-auto break-all">
                   {item.email}
@@ -174,7 +174,7 @@ export default function StaffPage() {
 
         {/* ALADI Logo Section */}
         <div className="mt-24 pt-12 flex justify-center">
-          <div className="max-w-2xl w-full">
+          <div className="max-w-md w-full">
             <img
               src="/sello-aladi.jpg"
               alt="Sello de Respaldo ALADI - Asociación Latinoamericana de Diseño"
