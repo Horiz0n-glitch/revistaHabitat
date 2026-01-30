@@ -10,7 +10,7 @@ export default function StaffPage() {
     { title: "Editor Asistente", name: "Miriam Blas", email: "miriam.e.blas@revistahabitat.com" },
     { title: "Editor Web", name: "Gonzalo Galeano", email: "gonzalo.galeano@revistahabitat.com" },
     { title: "Diseño Web", name: "Yosuan Damian Maciel", email: "yosuanmultineddu@gmail.com" },
-    { title: "Diseño Gráfico", email: "carlajulianavidal@gmail.com" },
+    { title: "Diseño Gráfico", name: "Carla Juliana Vidal", email: "carlajulianavidal@gmail.com" },
     { title: "Sección Turismo Cultural", name: "Arq. Tito Gastaldi", email: "titogastaldi@revistahabitat.com" },
     { title: "Sección Capacitación", name: "Juan José López", email: "jjlopez@revistahabitat.com" },
   ]
@@ -44,7 +44,7 @@ export default function StaffPage() {
       { location: "Miami - Orlando - Florida - EEUU", name: "Arq. Jorge Puglisi", email: "jorgearielpuglisi@gmail.com" },
       { location: "Argentina", name: "Arq. Enrique Madia", email: "emadia@aol.com" },
       { location: "España", name: "Dr. Ing. Ignacio Yusim", email: "ingyusim@yahoo.com.ar" },
-      { location: "Italia", name: "Lic. Sebastián Pacheco", email: "sebastian.pach@yahoo.com.ar" },
+      { location: "Italia", name: "Lic. Sebastián Pacheco", email: "sebastianpach27@gmail.com" },
       { location: "Uruguay", name: "Arq. Eduardo Montemuiño", email: "arqtema@gmail.com" },
     ]
   }
